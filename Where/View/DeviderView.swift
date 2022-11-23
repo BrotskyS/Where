@@ -1,5 +1,5 @@
 //
-//  AuthButtonView.swift
+//  DeviderView.swift
 //  Where
 //
 //  Created by Sergiy Brotsky on 23.11.2022.
@@ -7,13 +7,12 @@
 
 import UIKit
 
-class AuthButtonView: UIButton {
-    
+class DeviderView: UIView {
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setTitle("Hello", for: .normal)
-        clipsToBounds = true
-        layer.cornerRadius = 10
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .label
         
         setupLayout()
     }
@@ -22,19 +21,13 @@ class AuthButtonView: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func configure(text: String) {
-        setTitle(text, for: .normal)
-        tintColor = .label
-        backgroundColor = UIColor.lightGray
-        
-    }
     
     // MARK: Private
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalToConstant: 45),
+            heightAnchor.constraint(equalToConstant: 1),
+//            widthAnchor.constraint(greaterThanOrEqualToConstant: 200)
         ])
     }
-    
 }

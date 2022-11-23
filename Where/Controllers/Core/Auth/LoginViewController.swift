@@ -9,11 +9,12 @@ import UIKit
 
 class LoginViewController: UIViewController, UITextViewDelegate {
     
+    // MARK: Views
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.spacing = 5
+        stackView.spacing = 15
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
@@ -60,6 +61,7 @@ class LoginViewController: UIViewController, UITextViewDelegate {
     
     private let termsTextView: UITextView = {
         let lable = UITextView()
+        lable.translatesAutoresizingMaskIntoConstraints = false
         let text = "By signing up, you are agree to our Terms & Conditions and Privacy Polisy"
         var attributedString = NSMutableAttributedString(string: text)
         attributedString.addAttribute(.link, value: "terms", range: NSRange(location: 35, length: 19))
@@ -73,24 +75,97 @@ class LoginViewController: UIViewController, UITextViewDelegate {
         lable.backgroundColor = .theme.background
         lable.textColor = .label
         
+        lable.heightAnchor.constraint(lessThanOrEqualToConstant: 50).isActive = true
+        
         
         return lable
         
     }()
     
-    private let loginButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Login", for: .normal)
-        button.backgroundColor = .red
+    private let loginButton: AuthButtonView = {
+        let button = AuthButtonView()
+        button.configure(text: "Continue")
         
         return button
     }()
     
+    private let deviderOr: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        let lable = UILabel()
+        lable.translatesAutoresizingMaskIntoConstraints = false
+        lable.text = "OR"
+        lable.textColor = .label
+        
     
+        let deviderLeft = DeviderView()
+        
+        let deviderRight = DeviderView()
+
+        
+        view.addSubview(deviderLeft)
+        view.addSubview(lable)
+        view.addSubview(deviderRight)
+        
+        
+        NSLayoutConstraint.activate([
+            view.heightAnchor.constraint(lessThanOrEqualToConstant: 50),
+            
+            lable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            lable.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            deviderLeft.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            deviderLeft.trailingAnchor.constraint(equalTo: lable.leadingAnchor, constant: -10),
+            deviderLeft.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            deviderRight.leadingAnchor.constraint(equalTo: lable.trailingAnchor, constant: 10),
+            deviderRight.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            deviderRight.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            
+        ])
+        return view
+    }()
+    
+    private let googleButton: AuthButtonView = {
+        let button = AuthButtonView()
+        button.configure(text: "Google")
+        
+        return button
+    }()
+    
+    private let toLogin: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        let text = "Joined us before? Login"
+        var attributedString = NSMutableAttributedString(string: text)
+        attributedString.addAttribute(.link, value: "toLogin", range: NSRange(location: 18, length: 5))
+        
+        
+        
+        textView.attributedText = attributedString
+        textView.font = .systemFont(ofSize: 16, weight: .semibold)
+        textView.isEditable = false
+        textView.isSelectable = false
+        textView.backgroundColor = .theme.background
+        textView.textColor = .label
+        textView.textAlignment = .center
+        
+        textView.heightAnchor.constraint(lessThanOrEqualToConstant: 50).isActive = true
+        
+        
+        return textView
+        
+    }()
+    
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
-        title = "Sign Up"
+        navigationController?.isNavigationBarHidden = true
         
         configureViews()
         setupLayout()
@@ -112,7 +187,14 @@ class LoginViewController: UIViewController, UITextViewDelegate {
         stackView.addArrangedSubview(passwordRepeateField)
         stackView.addArrangedSubview(termsTextView)
         stackView.addArrangedSubview(loginButton)
+        stackView.setCustomSpacing(0, after: loginButton)
+
+        stackView.addArrangedSubview(deviderOr)
+        stackView.setCustomSpacing(0, after: deviderOr)
+    
         
+        stackView.addArrangedSubview(googleButton)
+        stackView.addArrangedSubview(toLogin)
         
         
         

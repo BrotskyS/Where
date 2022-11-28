@@ -8,7 +8,16 @@
 import Foundation
 import UIKit
 
-class ChageAuthTypeButton: UIView {
+protocol ChangeAuthTypeButtonDelegete: AnyObject {
+    func didTapOnChangeType()
+}
+
+class ChangeAuthTypeButton: UIView {
+    
+    weak var delegete: ChangeAuthTypeButtonDelegete?
+    
+    let view = UIView()
+    
     let lable: UILabel = {
         let lable = UILabel()
         lable.textColor = .placeholderText
@@ -30,9 +39,15 @@ class ChageAuthTypeButton: UIView {
 
         
         
-        backgroundColor = .red
-        addSubview(lable)
-        addSubview(button)
+        
+        addSubview(view)
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(lable)
+        view.addSubview(button)
+        
+        button.addTarget(self, action: #selector(didTab), for: .touchUpInside)
         
         setupLayout()
     }
@@ -42,24 +57,30 @@ class ChageAuthTypeButton: UIView {
     }
     
     func configure(lableText: String, buttonText: String) {
-       
-       
         lable.text = lableText
         
         button.setTitle(buttonText, for: .normal)
-        
+    }
+    
+    @objc func didTab() {
+        delegete?.didTapOnChangeType()
     }
     
 }
 
-extension ChageAuthTypeButton {
+extension ChangeAuthTypeButton {
     func setupLayout() {
         NSLayoutConstraint.activate([
-            heightAnchor.constraint(equalTo: button.heightAnchor),
-            widthAnchor.constraint(equalToConstant: 100),
-            centerXAnchor.constraint(equalTo: centerXAnchor),
+            heightAnchor.constraint(equalToConstant: 50),
+
+            view.leadingAnchor.constraint(equalTo: lable.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: button.trailingAnchor),
+            view.heightAnchor.constraint(equalTo: heightAnchor),
+            view.centerXAnchor.constraint(equalTo: centerXAnchor),
+
             lable.centerYAnchor.constraint(equalTo: centerYAnchor),
             
+
             
             
             button.leadingAnchor.constraint(equalTo: lable.trailingAnchor, constant: 5),

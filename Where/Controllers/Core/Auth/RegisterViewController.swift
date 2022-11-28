@@ -7,7 +7,9 @@
 
 import UIKit
 
-class RegisterViewController: UIViewController, UITextViewDelegate {
+class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeButtonDelegete {
+   
+    
     
     // MARK: Views
     private let stackView: UIStackView = {
@@ -33,6 +35,8 @@ class RegisterViewController: UIViewController, UITextViewDelegate {
         let title = UILabel()
         title.text = "Sign Up"
         title.font = .systemFont(ofSize: 34, weight: .bold)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         return title
         
@@ -89,45 +93,7 @@ class RegisterViewController: UIViewController, UITextViewDelegate {
         return button
     }()
     
-    private let deviderOr: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        let lable = UILabel()
-        lable.translatesAutoresizingMaskIntoConstraints = false
-        lable.text = "OR"
-        lable.textColor = .label
-        
-    
-        let deviderLeft = DeviderView()
-        
-        let deviderRight = DeviderView()
-
-        
-        view.addSubview(deviderLeft)
-        view.addSubview(lable)
-        view.addSubview(deviderRight)
-        
-        
-        NSLayoutConstraint.activate([
-            view.heightAnchor.constraint(lessThanOrEqualToConstant: 50),
-            
-            lable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            lable.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
-            deviderLeft.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            deviderLeft.trailingAnchor.constraint(equalTo: lable.leadingAnchor, constant: -10),
-            deviderLeft.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
-            deviderRight.leadingAnchor.constraint(equalTo: lable.trailingAnchor, constant: 10),
-            deviderRight.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            deviderRight.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            
-            
-        ])
-        return view
-    }()
+    private let deviderOr = DeviderOr()
     
     private let googleButton: AuthButtonView = {
         let button = AuthButtonView()
@@ -136,35 +102,12 @@ class RegisterViewController: UIViewController, UITextViewDelegate {
         return button
     }()
     
-    private let toLogin: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        let text = "Joined us before? Login"
-        var attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(.link, value: "toLogin", range: NSRange(location: 18, length: 5))
-        
-        
-        
-        textView.attributedText = attributedString
-        textView.font = .systemFont(ofSize: 16, weight: .semibold)
-        textView.isEditable = false
-        textView.isSelectable = false
-        textView.backgroundColor = .theme.background
-        textView.textColor = .label
-        textView.textAlignment = .center
-        
-        textView.heightAnchor.constraint(lessThanOrEqualToConstant: 50).isActive = true
-        
-        
-        return textView
-        
-    }()
+    private let toLogin = ChangeAuthTypeButton()
     
     
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .theme.background
         navigationController?.isNavigationBarHidden = true
         
         configureViews()
@@ -194,6 +137,9 @@ class RegisterViewController: UIViewController, UITextViewDelegate {
     
         
         stackView.addArrangedSubview(googleButton)
+        
+        toLogin.configure(lableText: "Joined us before?", buttonText: "Login")
+        toLogin.delegete = self
         stackView.addArrangedSubview(toLogin)
         
         
@@ -211,6 +157,10 @@ class RegisterViewController: UIViewController, UITextViewDelegate {
         
     }
     
+    func didTapOnChangeType() {
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 extension RegisterViewController {
@@ -223,18 +173,7 @@ extension RegisterViewController {
             
         ])
     }
-    
-    func setupDismissKeyboardGesture() {
-        let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_: )))
-        view.addGestureRecognizer(dismissKeyboardTap)
-    }
-    
-    @objc func viewTapped(_ recognizer: UITapGestureRecognizer) {
-        if recognizer.state == UIGestureRecognizer.State.ended {
-            view.endEditing(true) // resign first responder
-        }
-    }
-    
+        
     
 }
 

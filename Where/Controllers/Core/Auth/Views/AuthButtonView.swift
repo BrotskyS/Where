@@ -14,6 +14,7 @@ class AuthButtonView: UIButton {
         setTitle("Hello", for: .normal)
         clipsToBounds = true
         layer.cornerRadius = 10
+        translatesAutoresizingMaskIntoConstraints = false
         
         setupLayout()
     }
@@ -22,7 +23,7 @@ class AuthButtonView: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func configure(text: String) {
+    func configure(text: String) {
         setTitle(text, for: .normal)
         tintColor = .label
         backgroundColor = UIColor.lightGray

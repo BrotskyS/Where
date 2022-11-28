@@ -14,7 +14,6 @@
 		0D3B24E02923EDE9007E03F0 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3B24DF2923EDE9007E03F0 /* AccountViewController.swift */; };
 		0D3B24E32923F57E007E03F0 /* UIView + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3B24E22923F57E007E03F0 /* UIView + ext.swift */; };
 		0D44418F292CE3FC00B96ABD /* CustomTextViewUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D44418E292CE3FC00B96ABD /* CustomTextViewUIView.swift */; };
-		0D4987CD2934EC3D00192302 /* ChageAuthTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4987CC2934EC3D00192302 /* ChageAuthTypeButton.swift */; };
 		0D5EFAB0292BCD86006FC01F /* CustomTextFiledUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EFAAF292BCD86006FC01F /* CustomTextFiledUIView.swift */; };
 		0D5EFAB2292BE08C006FC01F /* UITextField + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EFAB1292BE08C006FC01F /* UITextField + ext.swift */; };
 		0D5EFAB4292BF17F006FC01F /* PhotosUIVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EFAB3292BF17F006FC01F /* PhotosUIVIew.swift */; };
@@ -31,6 +30,10 @@
 		0DE1C02F292D832900C2C93A /* AuthButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE1C02E292D832900C2C93A /* AuthButtonView.swift */; };
 		0DE1C032292EC1F300C2C93A /* DeviderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE1C031292EC1F300C2C93A /* DeviderView.swift */; };
 		0DE1C0342933EE8B00C2C93A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE1C0332933EE8B00C2C93A /* LoginViewController.swift */; };
+		0DF69E6B29351A8D00F1E5FE /* DeviderOr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E6A29351A8D00F1E5FE /* DeviderOr.swift */; };
+		0DF69E6D2935209A00F1E5FE /* UIViewController + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E6C2935209A00F1E5FE /* UIViewController + ext.swift */; };
+		0DF69E702935212100F1E5FE /* WABaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E6F2935212100F1E5FE /* WABaseController.swift */; };
+		0DF69E722935298900F1E5FE /* ChageAuthTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E712935298900F1E5FE /* ChageAuthTypeButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +44,6 @@
 		0D3B24DF2923EDE9007E03F0 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		0D3B24E22923F57E007E03F0 /* UIView + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + ext.swift"; sourceTree = "<group>"; };
 		0D44418E292CE3FC00B96ABD /* CustomTextViewUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextViewUIView.swift; sourceTree = "<group>"; };
-		0D4987CC2934EC3D00192302 /* ChageAuthTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChageAuthTypeButton.swift; sourceTree = "<group>"; };
 		0D5EFAAF292BCD86006FC01F /* CustomTextFiledUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFiledUIView.swift; sourceTree = "<group>"; };
 		0D5EFAB1292BE08C006FC01F /* UITextField + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + ext.swift"; sourceTree = "<group>"; };
 		0D5EFAB3292BF17F006FC01F /* PhotosUIVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUIVIew.swift; sourceTree = "<group>"; };
@@ -60,6 +62,10 @@
 		0DE1C02E292D832900C2C93A /* AuthButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButtonView.swift; sourceTree = "<group>"; };
 		0DE1C031292EC1F300C2C93A /* DeviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviderView.swift; sourceTree = "<group>"; };
 		0DE1C0332933EE8B00C2C93A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0DF69E6A29351A8D00F1E5FE /* DeviderOr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviderOr.swift; sourceTree = "<group>"; };
+		0DF69E6C2935209A00F1E5FE /* UIViewController + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + ext.swift"; sourceTree = "<group>"; };
+		0DF69E6F2935212100F1E5FE /* WABaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WABaseController.swift; sourceTree = "<group>"; };
+		0DF69E712935298900F1E5FE /* ChageAuthTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChageAuthTypeButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +153,7 @@
 				0D3B24D42923E9F2007E03F0 /* Controllers */,
 				0DC0F121291455B200FB6D4D /* Helpers */,
 				0DC0F10D2914525A00FB6D4D /* ViewController.swift */,
+				0DF69E6E2935210F00F1E5FE /* Base */,
 				0DC0F11D2914536700FB6D4D /* SupportingFiles */,
 			);
 			path = Where;
@@ -185,6 +192,7 @@
 				0DC0F122291455C100FB6D4D /* UIColor + ext.swift */,
 				0D3B24E22923F57E007E03F0 /* UIView + ext.swift */,
 				0D5EFAB1292BE08C006FC01F /* UITextField + ext.swift */,
+				0DF69E6C2935209A00F1E5FE /* UIViewController + ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -212,7 +220,8 @@
 			children = (
 				0DE1C02C292D4EE400C2C93A /* AuthTextFieldView.swift */,
 				0DE1C02E292D832900C2C93A /* AuthButtonView.swift */,
-				0D4987CC2934EC3D00192302 /* ChageAuthTypeButton.swift */,
+				0DF69E6A29351A8D00F1E5FE /* DeviderOr.swift */,
+				0DF69E712935298900F1E5FE /* ChageAuthTypeButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -223,6 +232,14 @@
 				0DE1C031292EC1F300C2C93A /* DeviderView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0DF69E6E2935210F00F1E5FE /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				0DF69E6F2935212100F1E5FE /* WABaseController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,6 +314,7 @@
 			files = (
 				0DE1C0342933EE8B00C2C93A /* LoginViewController.swift in Sources */,
 				0DC0F10E2914525A00FB6D4D /* ViewController.swift in Sources */,
+				0DF69E722935298900F1E5FE /* ChageAuthTypeButton.swift in Sources */,
 				0DC0F120291454B700FB6D4D /* TabBarController.swift in Sources */,
 				0D3B24DC2923EDD9007E03F0 /* AddViewController.swift in Sources */,
 				0D5EFAB0292BCD86006FC01F /* CustomTextFiledUIView.swift in Sources */,
@@ -309,9 +327,11 @@
 				0D3B24D82923EA32007E03F0 /* HomeViewController.swift in Sources */,
 				0DE1C02F292D832900C2C93A /* AuthButtonView.swift in Sources */,
 				0D3B24DE2923EDE0007E03F0 /* ChatViewController.swift in Sources */,
-				0D4987CD2934EC3D00192302 /* ChageAuthTypeButton.swift in Sources */,
+				0DF69E6B29351A8D00F1E5FE /* DeviderOr.swift in Sources */,
 				0D3B24DA2923EDD0007E03F0 /* MapViewController.swift in Sources */,
+				0DF69E702935212100F1E5FE /* WABaseController.swift in Sources */,
 				0DE1C032292EC1F300C2C93A /* DeviderView.swift in Sources */,
+				0DF69E6D2935209A00F1E5FE /* UIViewController + ext.swift in Sources */,
 				0D5EFAB4292BF17F006FC01F /* PhotosUIVIew.swift in Sources */,
 				0DE1C027292D3B7A00C2C93A /* RegisterViewController.swift in Sources */,
 				0D44418F292CE3FC00B96ABD /* CustomTextViewUIView.swift in Sources */,

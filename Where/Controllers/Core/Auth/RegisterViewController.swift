@@ -2,13 +2,12 @@
 //  LoginViewController.swift
 //  Where
 //
-//  Created by Sergiy Brotsky on 27.11.2022.
+//  Created by Sergiy Brotsky on 22.11.2022.
 //
 
-import Foundation
 import UIKit
 
-class LoginViewController: UIViewController, UITextViewDelegate {
+class RegisterViewController: UIViewController, UITextViewDelegate {
     
     // MARK: Views
     private let stackView: UIStackView = {
@@ -26,16 +25,14 @@ class LoginViewController: UIViewController, UITextViewDelegate {
         image.image = UIImage(systemName: "square.and.arrow.up.fill")
         image.tintColor = .label
         image.contentMode = .scaleAspectFit
-        image.setContentCompressionResistancePriority(.required, for: .vertical)
         
         return image
     }()
     
     private let titleView: UILabel = {
         let title = UILabel()
-        title.text = "Login"
+        title.text = "Sign Up"
         title.font = .systemFont(ofSize: 34, weight: .bold)
-        title.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
         
         return title
         
@@ -55,16 +52,11 @@ class LoginViewController: UIViewController, UITextViewDelegate {
         return field
     }()
     
-    private let forgotPasswordButton: UIButton = {
-       let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Forgot Password?", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
-        button.contentHorizontalAlignment = .trailing
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    private let passwordRepeateField: AuthTextFieldView = {
+        let field = AuthTextFieldView()
+        field.configure(imageIcon: "lock", placeholder: "Repeat Password", isSecure: true)
         
-        return button
+        return field
     }()
     
     private let termsTextView: UITextView = {
@@ -82,9 +74,8 @@ class LoginViewController: UIViewController, UITextViewDelegate {
         lable.isSelectable = false
         lable.backgroundColor = .theme.background
         lable.textColor = .label
-        lable.isScrollEnabled = false
-        lable.sizeToFit()
         
+        lable.heightAnchor.constraint(lessThanOrEqualToConstant: 50).isActive = true
         
         
         return lable
@@ -120,7 +111,7 @@ class LoginViewController: UIViewController, UITextViewDelegate {
         
         
         NSLayoutConstraint.activate([
-            view.heightAnchor.constraint(equalToConstant: 50),
+            view.heightAnchor.constraint(lessThanOrEqualToConstant: 50),
             
             lable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             lable.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -145,41 +136,29 @@ class LoginViewController: UIViewController, UITextViewDelegate {
         return button
     }()
     
-    private let toRegister: ChageAuthTypeButton = {
-       let lable = ChageAuthTypeButton()
-        lable.configure(lableText: "Fist time?", buttonText: "Register")
-
-        return lable
+    private let toLogin: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        let text = "Joined us before? Login"
+        var attributedString = NSMutableAttributedString(string: text)
+        attributedString.addAttribute(.link, value: "toLogin", range: NSRange(location: 18, length: 5))
+        
+        
+        
+        textView.attributedText = attributedString
+        textView.font = .systemFont(ofSize: 16, weight: .semibold)
+        textView.isEditable = false
+        textView.isSelectable = false
+        textView.backgroundColor = .theme.background
+        textView.textColor = .label
+        textView.textAlignment = .center
+        
+        textView.heightAnchor.constraint(lessThanOrEqualToConstant: 50).isActive = true
+        
+        
+        return textView
+        
     }()
-    
-//    private let toRegister: UITextView = {
-//        let textView = UITextView()
-//        textView.translatesAutoresizingMaskIntoConstraints = false
-//        let text = "Joined us before? Login"
-//        var attributedString = NSMutableAttributedString(string: text)
-//        attributedString.addAttribute(.link, value: "toLogin", range: NSRange(location: 18, length: 5))
-//
-//
-//
-//        textView.attributedText = attributedString
-//        textView.font = .systemFont(ofSize: 16, weight: .semibold)
-//        textView.isEditable = false
-//        textView.isSelectable = false
-//        textView.backgroundColor = .theme.background
-//        textView.textColor = .label
-//        textView.textAlignment = .center
-//        textView.isScrollEnabled = false
-//        textView.sizeToFit()
-//        textView.backgroundColor = .red
-//
-//        textView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//
-//
-//
-//        return textView
-//
-//    }()
-  
     
     
     // MARK: Lifecycle
@@ -191,7 +170,7 @@ class LoginViewController: UIViewController, UITextViewDelegate {
         configureViews()
         setupLayout()
         
-//        setupDismissKeyboardGesture()
+        setupDismissKeyboardGesture()
     }
     
     
@@ -200,34 +179,32 @@ class LoginViewController: UIViewController, UITextViewDelegate {
     private func configureViews() {
         view.addSubview(stackView)
         termsTextView.delegate = self
+        
         stackView.addArrangedSubview(topImage)
         stackView.addArrangedSubview(titleView)
         stackView.addArrangedSubview(emailField)
         stackView.addArrangedSubview(passwordField)
-        stackView.addArrangedSubview(forgotPasswordButton)
+        stackView.addArrangedSubview(passwordRepeateField)
         stackView.addArrangedSubview(termsTextView)
         stackView.addArrangedSubview(loginButton)
         stackView.setCustomSpacing(0, after: loginButton)
 
         stackView.addArrangedSubview(deviderOr)
         stackView.setCustomSpacing(0, after: deviderOr)
+    
+        
         stackView.addArrangedSubview(googleButton)
+        stackView.addArrangedSubview(toLogin)
         
-        
-        stackView.addArrangedSubview(toRegister)
         
         
     }
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        print("asdadasd")
         if URL.absoluteString == "terms" {
             print("terms")
         } else if URL.absoluteString == "polisy" {
             print("polisy")
-        } else if URL.absoluteString == "toRegister" {
-            print("ada")
-            navigationController?.pushViewController(RegisterViewController(), animated: true)
         }
         
         return false
@@ -236,7 +213,7 @@ class LoginViewController: UIViewController, UITextViewDelegate {
     
 }
 
-extension LoginViewController {
+extension RegisterViewController {
     func setupLayout() {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -244,22 +221,19 @@ extension LoginViewController {
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             stackView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor),
             
-            
-            
-            
         ])
     }
     
-//    func setupDismissKeyboardGesture() {
-//        let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_: )))
-//        view.addGestureRecognizer(dismissKeyboardTap)
-//    }
-//
-//    @objc func viewTapped(_ recognizer: UITapGestureRecognizer) {
-//        if recognizer.state == UIGestureRecognizer.State.ended {
-//            view.endEditing(true) // resign first responder
-//        }
-//    }
+    func setupDismissKeyboardGesture() {
+        let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_: )))
+        view.addGestureRecognizer(dismissKeyboardTap)
+    }
+    
+    @objc func viewTapped(_ recognizer: UITapGestureRecognizer) {
+        if recognizer.state == UIGestureRecognizer.State.ended {
+            view.endEditing(true) // resign first responder
+        }
+    }
     
     
 }

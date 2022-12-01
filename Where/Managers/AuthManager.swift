@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+
+class AuthManager {
+    static let shared = AuthManager()
+    
+    var isSignedIn: Bool {
+        return true
+    }
+}

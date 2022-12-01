@@ -34,6 +34,12 @@
 		0DF69E6D2935209A00F1E5FE /* UIViewController + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E6C2935209A00F1E5FE /* UIViewController + ext.swift */; };
 		0DF69E702935212100F1E5FE /* WABaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E6F2935212100F1E5FE /* WABaseController.swift */; };
 		0DF69E722935298900F1E5FE /* ChageAuthTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E712935298900F1E5FE /* ChageAuthTypeButton.swift */; };
+		0DF69E7629360EB900F1E5FE /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E7529360EB900F1E5FE /* HomeCollectionViewCell.swift */; };
+		0DF69E78293652B400F1E5FE /* LostItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E77293652B400F1E5FE /* LostItemViewController.swift */; };
+		0DF69E7C2938FC3C00F1E5FE /* LostItemUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E7B2938FC3C00F1E5FE /* LostItemUserView.swift */; };
+		0DF69E7E293906B800F1E5FE /* UILable + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E7D293906B800F1E5FE /* UILable + ext.swift */; };
+		0DF69E80293910AC00F1E5FE /* LostItemLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E7F293910AC00F1E5FE /* LostItemLocationView.swift */; };
+		0DF69E832939175A00F1E5FE /* LostItemButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E822939175A00F1E5FE /* LostItemButtonsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +72,12 @@
 		0DF69E6C2935209A00F1E5FE /* UIViewController + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + ext.swift"; sourceTree = "<group>"; };
 		0DF69E6F2935212100F1E5FE /* WABaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WABaseController.swift; sourceTree = "<group>"; };
 		0DF69E712935298900F1E5FE /* ChageAuthTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChageAuthTypeButton.swift; sourceTree = "<group>"; };
+		0DF69E7529360EB900F1E5FE /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		0DF69E77293652B400F1E5FE /* LostItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostItemViewController.swift; sourceTree = "<group>"; };
+		0DF69E7B2938FC3C00F1E5FE /* LostItemUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostItemUserView.swift; sourceTree = "<group>"; };
+		0DF69E7D293906B800F1E5FE /* UILable + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILable + ext.swift"; sourceTree = "<group>"; };
+		0DF69E7F293910AC00F1E5FE /* LostItemLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostItemLocationView.swift; sourceTree = "<group>"; };
+		0DF69E822939175A00F1E5FE /* LostItemButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostItemButtonsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +105,8 @@
 			children = (
 				0DE1C025292D3B3900C2C93A /* Auth */,
 				0D5EFAAD292BCD33006FC01F /* Add */,
+				0DF69E732936005000F1E5FE /* Home */,
 				0DC0F11F291454B700FB6D4D /* TabBarController.swift */,
-				0D3B24D72923EA32007E03F0 /* HomeViewController.swift */,
 				0D3B24D92923EDD0007E03F0 /* MapViewController.swift */,
 				0D3B24DD2923EDE0007E03F0 /* ChatViewController.swift */,
 				0D3B24DF2923EDE9007E03F0 /* AccountViewController.swift */,
@@ -105,6 +117,7 @@
 		0D3B24D62923EA03007E03F0 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				0DF69E792936542300F1E5FE /* LostItem */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -193,6 +206,7 @@
 				0D3B24E22923F57E007E03F0 /* UIView + ext.swift */,
 				0D5EFAB1292BE08C006FC01F /* UITextField + ext.swift */,
 				0DF69E6C2935209A00F1E5FE /* UIViewController + ext.swift */,
+				0DF69E7D293906B800F1E5FE /* UILable + ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -240,6 +254,42 @@
 				0DF69E6F2935212100F1E5FE /* WABaseController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		0DF69E732936005000F1E5FE /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				0DF69E742936005B00F1E5FE /* Views */,
+				0D3B24D72923EA32007E03F0 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		0DF69E742936005B00F1E5FE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0DF69E7529360EB900F1E5FE /* HomeCollectionViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0DF69E792936542300F1E5FE /* LostItem */ = {
+			isa = PBXGroup;
+			children = (
+				0DF69E7A2938FC0D00F1E5FE /* Views */,
+				0DF69E77293652B400F1E5FE /* LostItemViewController.swift */,
+			);
+			path = LostItem;
+			sourceTree = "<group>";
+		};
+		0DF69E7A2938FC0D00F1E5FE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0DF69E7B2938FC3C00F1E5FE /* LostItemUserView.swift */,
+				0DF69E7F293910AC00F1E5FE /* LostItemLocationView.swift */,
+				0DF69E822939175A00F1E5FE /* LostItemButtonsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,6 +367,7 @@
 				0DF69E722935298900F1E5FE /* ChageAuthTypeButton.swift in Sources */,
 				0DC0F120291454B700FB6D4D /* TabBarController.swift in Sources */,
 				0D3B24DC2923EDD9007E03F0 /* AddViewController.swift in Sources */,
+				0DF69E7629360EB900F1E5FE /* HomeCollectionViewCell.swift in Sources */,
 				0D5EFAB0292BCD86006FC01F /* CustomTextFiledUIView.swift in Sources */,
 				0DC0F10A2914525A00FB6D4D /* AppDelegate.swift in Sources */,
 				0DC0F123291455C100FB6D4D /* UIColor + ext.swift in Sources */,
@@ -324,19 +375,24 @@
 				0DC0F10C2914525A00FB6D4D /* SceneDelegate.swift in Sources */,
 				0DE1C02A292D426600C2C93A /* AuthManager.swift in Sources */,
 				0D3B24E02923EDE9007E03F0 /* AccountViewController.swift in Sources */,
+				0DF69E78293652B400F1E5FE /* LostItemViewController.swift in Sources */,
 				0D3B24D82923EA32007E03F0 /* HomeViewController.swift in Sources */,
 				0DE1C02F292D832900C2C93A /* AuthButtonView.swift in Sources */,
 				0D3B24DE2923EDE0007E03F0 /* ChatViewController.swift in Sources */,
 				0DF69E6B29351A8D00F1E5FE /* DeviderOr.swift in Sources */,
 				0D3B24DA2923EDD0007E03F0 /* MapViewController.swift in Sources */,
 				0DF69E702935212100F1E5FE /* WABaseController.swift in Sources */,
+				0DF69E7C2938FC3C00F1E5FE /* LostItemUserView.swift in Sources */,
 				0DE1C032292EC1F300C2C93A /* DeviderView.swift in Sources */,
 				0DF69E6D2935209A00F1E5FE /* UIViewController + ext.swift in Sources */,
 				0D5EFAB4292BF17F006FC01F /* PhotosUIVIew.swift in Sources */,
+				0DF69E80293910AC00F1E5FE /* LostItemLocationView.swift in Sources */,
+				0DF69E832939175A00F1E5FE /* LostItemButtonsView.swift in Sources */,
 				0DE1C027292D3B7A00C2C93A /* RegisterViewController.swift in Sources */,
 				0D44418F292CE3FC00B96ABD /* CustomTextViewUIView.swift in Sources */,
 				0D5EFAB2292BE08C006FC01F /* UITextField + ext.swift in Sources */,
 				0D3B24E32923F57E007E03F0 /* UIView + ext.swift in Sources */,
+				0DF69E7E293906B800F1E5FE /* UILable + ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,8 +536,8 @@
 				INFOPLIST_FILE = Where/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -507,8 +563,8 @@
 				INFOPLIST_FILE = Where/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

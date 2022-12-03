@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class PhotosUIVIew: UIView {
     
     // MARK: Components

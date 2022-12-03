@@ -81,6 +81,22 @@ class AddViewController: UIViewController {
         return field
     }()
     
+    private let saveButton: UIButton = {
+        let button =  UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Save", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.setTitleColor(.white, for: .normal)
+        
+        NSLayoutConstraint.activate([
+            button.heightAnchor.constraint(equalToConstant: 45)
+        ])
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
@@ -91,8 +107,7 @@ class AddViewController: UIViewController {
     
     private func setupViews() {
         view.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(stackView)
+        scrollView.addSubview(stackView)
         
         stackView.addArrangedSubview(segmentControl)
         stackView.addArrangedSubview(photosView)
@@ -100,6 +115,11 @@ class AddViewController: UIViewController {
         stackView.addArrangedSubview(descriptionField)
         stackView.addArrangedSubview(phoneNumberField)
         stackView.addArrangedSubview(rewardFiled)
+        
+        saveButton.addTarget(self, action: #selector(tappedOnSaveButton), for: .touchUpInside)
+        stackView.addArrangedSubview(saveButton)
+        
+        
         
     }
     
@@ -114,6 +134,10 @@ class AddViewController: UIViewController {
          }
      }
     
+    @objc private func tappedOnSaveButton() {
+       
+    }
+    
     private func setupLayout() {
         
         NSLayoutConstraint.activate([
@@ -122,17 +146,10 @@ class AddViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10),
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -20),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 10),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -30),
         ])
         
     }

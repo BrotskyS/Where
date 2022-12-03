@@ -57,7 +57,6 @@ class CustomTextFiledUIView: UIView {
         addSubview(textField)
         addSubview(counterLable)
         addConstraints()
-        
         textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
     }
@@ -85,8 +84,12 @@ class CustomTextFiledUIView: UIView {
         }
     }
     
-    open func setKeyboardType(type: UIKeyboardType) {
+    func setKeyboardType(type: UIKeyboardType) {
         textField.keyboardType = type
+    }
+    
+    func getText() -> String {
+        return textField.text ?? ""
     }
     
     
@@ -109,13 +112,13 @@ class CustomTextFiledUIView: UIView {
         NSLayoutConstraint.activate([
             // basic
             widthAnchor.constraint(equalToConstant: 100),
-            heightAnchor.constraint(equalToConstant: 60),
+            heightAnchor.constraint(equalToConstant: 70),
             
             // title
             titleLable.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             
             // textField
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 10),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
             textField.widthAnchor.constraint(equalTo: widthAnchor),
             textField.heightAnchor.constraint(equalToConstant: 40),
             

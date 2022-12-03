@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,15 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        FirebaseApp.configure()
         let window = UIWindow(frame: UIScreen.main.bounds)
         
-        if AuthManager.shared.isSignedIn {
-            window.rootViewController = TabBarController()
-        } else {
-            let navVC = UINavigationController(rootViewController: LoginViewController())
-            window.rootViewController = navVC
-            window.makeKeyAndVisible()
-        }
+        window.rootViewController = TabBarController()
         
         self.window = window
         

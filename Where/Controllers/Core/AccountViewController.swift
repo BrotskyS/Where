@@ -11,7 +11,7 @@ class AccountViewController: UIViewController {
 
     
     let signoutButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         
 
        
@@ -26,9 +26,14 @@ class AccountViewController: UIViewController {
         title = "Account"
         view.backgroundColor = .systemBackground
         navigationItem.largeTitleDisplayMode = .never
+        signoutButton.addTarget(self, action: #selector(tappedSignOut), for: .touchUpInside)
         
        
         view.addSubview(signoutButton)
+    }
+    
+    @objc private func tappedSignOut() {
+        AuthManager.shared.signOut()
     }
     
     override func viewDidLayoutSubviews() {

@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeButtonDelegete {
-   
+    
     
     
     // MARK: Views
@@ -75,7 +76,6 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
         lable.attributedText = attributedString
         lable.font = .systemFont(ofSize: 16, weight: .semibold)
         lable.isEditable = false
-        lable.isSelectable = false
         lable.backgroundColor = .theme.background
         lable.textColor = .label
         
@@ -87,7 +87,7 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
     }()
     
     private let loginButton: AuthButtonView = {
-        let button = AuthButtonView()
+        let button = AuthButtonView(type: .system)
         button.configure(text: "Continue")
         
         return button
@@ -96,7 +96,7 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
     private let deviderOr = DeviderOr()
     
     private let googleButton: AuthButtonView = {
-        let button = AuthButtonView()
+        let button = AuthButtonView(type: .system)
         button.configure(text: "Google")
         
         return button
@@ -104,11 +104,14 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
     
     private let toLogin = ChangeAuthTypeButton()
     
+    // MARK: Managers
+    private let validationManager = ValidationManager()
+    
     
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isNavigationBarHidden = true
+//        navigationController?.isNavigationBarHidden = true
         
         configureViews()
         setupLayout()
@@ -125,16 +128,19 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
         
         stackView.addArrangedSubview(topImage)
         stackView.addArrangedSubview(titleView)
+        
         stackView.addArrangedSubview(emailField)
         stackView.addArrangedSubview(passwordField)
         stackView.addArrangedSubview(passwordRepeateField)
         stackView.addArrangedSubview(termsTextView)
+        
+        loginButton.addTarget(self, action: #selector(pressOnContinue), for: .touchUpInside)
         stackView.addArrangedSubview(loginButton)
         stackView.setCustomSpacing(0, after: loginButton)
-
+        
         stackView.addArrangedSubview(deviderOr)
         stackView.setCustomSpacing(0, after: deviderOr)
-    
+        
         
         stackView.addArrangedSubview(googleButton)
         
@@ -146,9 +152,49 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
         
     }
     
+    
+    
+    @objc private func pressOnContinue() {
+     
+        // Check fields with regex
+        let validationResult =  validationManager.validateRegister(
+            email: emailField.getText(),
+            password: passwordField.getText(),
+            passwordRepeate: passwordRepeateField.getText()
+        )
+        if let validationResult = validationResult {
+            
+            let alert = UIAlertController(title: "Error", message: validationResult.rawValue, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                print("Ok")
+            }))
+            self.present(alert, animated: true)
+            
+        } else {
+            guard let email = emailField.getText(), let password =  passwordField.getText() else {
+                return
+            }
+            AuthManager.shared.signUp(email: email, password: password) { [weak self] error in
+                if let error = error {
+                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                        print("Ok")
+                    }))
+                    self?.present(alert, animated: true)
+                } else {
+                    let vc = TabBarController()
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+    }
+    
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        
         if URL.absoluteString == "terms" {
             print("terms")
+            
         } else if URL.absoluteString == "polisy" {
             print("polisy")
         }
@@ -173,7 +219,7 @@ extension RegisterViewController {
             
         ])
     }
-        
+    
     
 }
 

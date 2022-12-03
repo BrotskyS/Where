@@ -9,24 +9,17 @@ import UIKit
 
 class AuthButtonView: UIButton {
     
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        setTitle("Hello", for: .normal)
+    func configure(text: String) {
+        setTitle(text, for: .normal)
+        tintColor = .white
+        backgroundColor = .systemBlue
+        titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+        setTitle(text, for: .normal)
         clipsToBounds = true
         layer.cornerRadius = 10
         translatesAutoresizingMaskIntoConstraints = false
         
         setupLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure(text: String) {
-        setTitle(text, for: .normal)
-        tintColor = .label
-        backgroundColor = UIColor.lightGray
         
     }
     

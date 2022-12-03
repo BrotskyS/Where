@@ -11,7 +11,7 @@ class AuthTextFieldView: UIView {
     private let leftImageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.tintColor = .label
+        image.tintColor = .placeholderText
         image.contentMode = .scaleAspectFit
         
         
@@ -25,20 +25,20 @@ class AuthTextFieldView: UIView {
         return textField
     }()
     
-    lazy var isSecureImageView: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(systemName: "eye.slash")
-        image.tintColor = .label
-        image.contentMode = .scaleAspectFit
+    private let isSecureImageView: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.contentMode = .scaleAspectFit
+        button.tintColor = .placeholderText
         
-        return image
+        return button
     }()
     
     private let devider: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .label
+        view.backgroundColor = .placeholderText
         
         return view
     }()
@@ -59,23 +59,47 @@ class AuthTextFieldView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     func configure(imageIcon: String, placeholder: String, isSecure: Bool = false) {
         leftImageView.image = UIImage(systemName: imageIcon)
         textFiledView.placeholder = placeholder
         
         if isSecure {
             addSubview(isSecureImageView)
+            isSecureImageView.addTarget(self, action: #selector(changeVisibility), for: .touchUpInside)
             
             NSLayoutConstraint.activate([
                 isSecureImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-                isSecureImageView.widthAnchor.constraint(equalToConstant: 20),
-                isSecureImageView.heightAnchor.constraint(equalToConstant: 20),
-                isSecureImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+                isSecureImageView.widthAnchor.constraint(equalToConstant: 25),
+                isSecureImageView.heightAnchor.constraint(equalToConstant: 25),
+                isSecureImageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 10),
             ])
             
             textFiledView.isSecureTextEntry = true
+            textFiledView.textContentType = .password
         }
         
+    }
+    
+
+    
+    func getText() -> String? {
+        return textFiledView.text
+    }
+    
+    // MARK: Private
+    
+    @objc private func changeVisibility() {
+   
+        if textFiledView.isSecureTextEntry {
+            isSecureImageView.setImage(UIImage(systemName: "eye"), for: .normal)
+        } else {
+            isSecureImageView.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        }
+       
+        
+        textFiledView.togglePasswordVisibility()
     }
 }
 
@@ -104,3 +128,4 @@ extension AuthTextFieldView {
         ])
     }
 }
+

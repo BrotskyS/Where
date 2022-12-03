@@ -82,7 +82,6 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         lable.attributedText = attributedString
         lable.font = .systemFont(ofSize: 16, weight: .semibold)
         lable.isEditable = false
-//        lable.isSelectable = false
         lable.backgroundColor = .theme.background
         lable.textColor = .label
         lable.isScrollEnabled = false
@@ -95,8 +94,9 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
     }()
     
     private let loginButton: AuthButtonView = {
-        let button = AuthButtonView()
+        let button = AuthButtonView(type: .system)
         button.configure(text: "Continue")
+        button.isSpringLoaded = false
         
         return button
     }()
@@ -104,22 +104,39 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
     private let deviderOr = DeviderOr()
     
     private let googleButton: AuthButtonView = {
-        let button = AuthButtonView()
+        let button = AuthButtonView(type: .system)
         button.configure(text: "Google")
+        button.backgroundColor = .systemGray5
+        button.setTitleColor(.label, for: .normal)
         
+        
+        let image = UIImageView()
+        image.image = UIImage(named: "google")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addSubview(image)
+        
+        NSLayoutConstraint.activate([
+            image.widthAnchor.constraint(equalToConstant: 30),
+            image.heightAnchor.constraint(equalToConstant: 30),
+            image.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 30),
+            image.centerYAnchor.constraint(equalTo: button.centerYAnchor)
+        ])
         return button
     }()
     
     private let toRegister = ChangeAuthTypeButton()
     
-    
+    // MARK: Managers
+    private let validationManager = ValidationManager()
   
     
     
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.isNavigationBarHidden = true
+//        navigationController?.isNavigationBarHidden = true
         
         configureViews()
         setupLayout()
@@ -141,7 +158,7 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         stackView.addArrangedSubview(forgotPasswordButton)
         stackView.addArrangedSubview(termsTextView)
         
-        loginButton.addTarget(self, action: #selector(onPressContinue), for: .touchUpInside)
+        loginButton.addTarget(self, action: #selector(pressOnContinue), for: .touchUpInside)
         stackView.addArrangedSubview(loginButton)
         stackView.setCustomSpacing(0, after: loginButton)
 
@@ -158,9 +175,39 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         
     }
     
-    @objc private func onPressContinue() {
-        print("asd")
-        navigationController?.pushViewController(TabBarController(), animated: true)
+    @objc private func pressOnContinue() {
+        // Check fields with regex
+        let validationResult =  validationManager.validateLogin(
+            email: emailField.getText(),
+            password: passwordField.getText()
+        )
+        if let validationResult = validationResult {
+            
+            let alert = UIAlertController(title: "Error", message: validationResult.rawValue, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                print("Ok")
+            }))
+            self.present(alert, animated: true)
+            
+        } else {
+            guard let email = emailField.getText(), let password =  passwordField.getText() else {
+                return
+            }
+            
+
+            AuthManager.shared.signIn(email: email, password: password) { [weak self] error in
+                if let error = error {
+                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                        print("Ok")
+                    }))
+                    self?.present(alert, animated: true)
+                } else {
+                    let vc = TabBarController()
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
     }
    
     

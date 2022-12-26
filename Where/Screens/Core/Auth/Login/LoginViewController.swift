@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeButtonDelegete {
- 
     
     
-    // MARK: Views
+    
+    // MARK: UI Components
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -46,20 +46,20 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
     
     private let emailField: AuthTextFieldView = {
         let field = AuthTextFieldView()
-        field.configure(imageIcon: "envelope", placeholder: "Email")
+        field.configure(imageIcon: "envelope", placeholder: "Email", fieldType: .email)
         
         return field
     }()
     
     private let passwordField: AuthTextFieldView = {
         let field = AuthTextFieldView()
-        field.configure(imageIcon: "lock", placeholder: "Password", isSecure: true)
+        field.configure(imageIcon: "lock", placeholder: "Password", fieldType: .password, isSecure: true)
         
         return field
     }()
     
     private let forgotPasswordButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Forgot Password?", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
@@ -130,14 +130,11 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
     
     // MARK: Managers
     private let validationManager = ValidationManager()
-  
     
     
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationController?.isNavigationBarHidden = true
-        
         configureViews()
         setupLayout()
         
@@ -161,7 +158,7 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         loginButton.addTarget(self, action: #selector(pressOnContinue), for: .touchUpInside)
         stackView.addArrangedSubview(loginButton)
         stackView.setCustomSpacing(0, after: loginButton)
-
+        
         stackView.addArrangedSubview(deviderOr)
         stackView.setCustomSpacing(0, after: deviderOr)
         stackView.addArrangedSubview(googleButton)
@@ -169,47 +166,35 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         
         toRegister.configure(lableText: "First Time", buttonText: "Register")
         toRegister.delegete = self
+        
         stackView.addArrangedSubview(toRegister)
-
+        
         
         
     }
     
-    @objc private func pressOnContinue() {
-        // Check fields with regex
-        let validationResult =  validationManager.validateLogin(
-            email: emailField.getText(),
-            password: passwordField.getText()
-        )
-        if let validationResult = validationResult {
-            
-            let alert = UIAlertController(title: "Error", message: validationResult.rawValue, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                print("Ok")
-            }))
-            self.present(alert, animated: true)
-            
-        } else {
-            guard let email = emailField.getText(), let password =  passwordField.getText() else {
-                return
-            }
-            
-
-            AuthManager.shared.signIn(email: email, password: password) { [weak self] error in
-                if let error = error {
-                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                        print("Ok")
-                    }))
-                    self?.present(alert, animated: true)
-                } else {
-                    let vc = TabBarController()
-                    self?.navigationController?.pushViewController(vc, animated: true)
-                }
-            }
+    @objc func pressOnContinue() {
+        // check if form valid
+        
+        let validationError = validationManager.validateLogin(email: emailField.getText(), password: passwordField.getText())
+        
+        guard let validationError = validationError else {
+            // sign in by firebase
+            signIn()
+            return
         }
+        
+        switch validationError {
+            case .emailEmpty, .emailIsInvalide:
+                return emailField.setError(message: validationError.rawValue)
+            case .passwordEmpty, .passwordIsInvalide:
+                return passwordField.setError(message: validationError.rawValue)
+        }
+        
+        
+        
     }
-   
+    
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == "terms" {
@@ -224,9 +209,29 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         
     }
     
+    private func signIn() {
+        guard let email = emailField.getText(), let password =  passwordField.getText() else {
+            return
+        }
+        
+        AuthManager.shared.signIn(email: email, password: password) { [weak self] error in
+            if let error = error {
+                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                    print("Ok")
+                }))
+                self?.present(alert, animated: true)
+            } else {
+                let vc = TabBarController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+    
     func didTapOnChangeType() {
         navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
+    
     
     func textViewDidChangeSelection(_ textView: UITextView) {
         textView.selectedTextRange = nil
@@ -235,6 +240,7 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
 }
 
 extension LoginViewController {
+    
     func setupLayout() {
         NSLayoutConstraint.activate([
             
@@ -246,8 +252,7 @@ extension LoginViewController {
         ])
     }
     
-  
-    
-    
 }
+
+
 

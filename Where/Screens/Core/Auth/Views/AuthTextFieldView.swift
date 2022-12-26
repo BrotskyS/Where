@@ -8,6 +8,11 @@
 import UIKit
 
 class AuthTextFieldView: UIView {
+    enum FieldType {
+        case email
+        case password
+    }
+    
     private let leftImageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +23,7 @@ class AuthTextFieldView: UIView {
         return image
     }()
     
-    private let textFiledView: UITextField = {
+    let textFiledView: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         
@@ -43,6 +48,17 @@ class AuthTextFieldView: UIView {
         return view
     }()
     
+    let erroMessage: UILabel = {
+       let label = UILabel()
+        label.textColor = .red
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        
+        return label
+    }()
+    
+    
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -50,20 +66,36 @@ class AuthTextFieldView: UIView {
         
         addSubview(leftImageView)
         addSubview(textFiledView)
+        textFiledView.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         addSubview(devider)
+        addSubview(erroMessage)
         
         setupLayout()
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        clearError()
+    }
     
     
-    func configure(imageIcon: String, placeholder: String, isSecure: Bool = false) {
+    func configure(imageIcon: String, placeholder: String, fieldType: FieldType, isSecure: Bool = false) {
         leftImageView.image = UIImage(systemName: imageIcon)
         textFiledView.placeholder = placeholder
+        
+        
+        switch fieldType {
+            case .email:
+                textFiledView.textContentType = .emailAddress
+                textFiledView.keyboardType = .emailAddress
+            case .password:
+                textFiledView.textContentType = .password
+                
+        }
         
         if isSecure {
             addSubview(isSecureImageView)
@@ -77,8 +109,10 @@ class AuthTextFieldView: UIView {
             ])
             
             textFiledView.isSecureTextEntry = true
-            textFiledView.textContentType = .password
+          
         }
+        
+        
         
     }
     
@@ -87,6 +121,19 @@ class AuthTextFieldView: UIView {
     func getText() -> String? {
         return textFiledView.text
     }
+    
+    func setError(message: String) {
+        erroMessage.isHidden = false
+        erroMessage.text = message
+        devider.backgroundColor = .red
+    }
+    
+    private func clearError() {
+        erroMessage.isHidden = true
+        devider.backgroundColor = .placeholderText
+    }
+    
+    
     
     // MARK: Private
     
@@ -124,7 +171,10 @@ extension AuthTextFieldView {
             devider.leadingAnchor.constraint(equalTo: leftImageView.trailingAnchor, constant: 10),
             devider.trailingAnchor.constraint(equalTo: trailingAnchor),
             devider.bottomAnchor.constraint(equalTo: bottomAnchor),
-            devider.heightAnchor.constraint(equalToConstant: 1)
+            devider.heightAnchor.constraint(equalToConstant: 1),
+            
+            erroMessage.topAnchor.constraint(equalTo: devider.bottomAnchor, constant: 3),
+            erroMessage.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }

@@ -1,13 +1,13 @@
 //
-//  CustomTextViewUIView.swift
+//  CustomTextFiledUIView.swift
 //  Where
 //
-//  Created by Sergiy Brotsky on 22.11.2022.
+//  Created by Sergiy Brotsky on 21.11.2022.
 //
 
 import UIKit
 
-class CustomTextViewUIView: UIView, UITextViewDelegate {
+class CustomTextFiledUIView: UIView {
     
     private let titleLable: UILabel = {
         let lable = UILabel()
@@ -21,18 +21,18 @@ class CustomTextViewUIView: UIView, UITextViewDelegate {
     }()
     
     
-    private let textView: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
+    let textField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Hello"
+        textField.backgroundColor = .theme.secondary
+        textField.layer.masksToBounds = true
+        textField.layer.cornerRadius = 5
         
-        textView.backgroundColor = .theme.secondary
-        textView.layer.masksToBounds = true
-        textView.layer.cornerRadius = 5
+        textField.setLeadingPaddingPoints(10)
         
         
-        
-        
-        return textView
+        return textField
     }()
     
     var maxWord: Int = 0
@@ -52,24 +52,52 @@ class CustomTextViewUIView: UIView, UITextViewDelegate {
     // MARK: Lifecycle
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        
         addSubview(titleLable)
-        addSubview(textView)
+        addSubview(textField)
         addSubview(counterLable)
         addConstraints()
-        
-        textView.delegate = self
+        textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
     }
-    
     
 
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        
     }
     
-    func textViewDidChange(_ textView: UITextView) {
-        let textCount = textView.text?.count ?? 0
+    // MARK: Open
+    open func configure(title: String, placeholder: String, maxWord: Int?) {
+        titleLable.text = title
+        textField.placeholder = placeholder
+        
+        if let maxWord = maxWord {
+            counterLable.text = "0/\(maxWord)"
+            self.maxWord = maxWord
+            textField.setTrailingPaddingPoints(50)
+        } else {
+            counterLable.isHidden = true
+            textField.setTrailingPaddingPoints(10)
+        }
+    }
+    
+    func setKeyboardType(type: UIKeyboardType) {
+        textField.keyboardType = type
+    }
+    
+    func getText() -> String {
+        return textField.text ?? ""
+    }
+    
+    
+    
+    // MARK: Private
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        let textCount = textField.text?.count ?? 0
         counterLable.text = "\(textCount)/\(maxWord)"
         
         if textCount > maxWord {
@@ -79,44 +107,31 @@ class CustomTextViewUIView: UIView, UITextViewDelegate {
         }
     }
     
-    // MARK: Open
-    open func configure(title: String, placeholder: String, maxWord: Int?) {
-        titleLable.text = title
-        
-        if let maxWord = maxWord {
-            counterLable.text = "0/\(maxWord)"
-            self.maxWord = maxWord
-        } else {
-            counterLable.isHidden = true
-        }
-    }
-    
-    
-    
-    // MARK: Private
-    
-    
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
             // basic
             widthAnchor.constraint(equalToConstant: 100),
-            heightAnchor.constraint(equalToConstant: 160),
+            heightAnchor.constraint(equalToConstant: 70),
             
             // title
             titleLable.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             
             // textField
-            textView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 10),
-            textView.widthAnchor.constraint(equalTo: widthAnchor),
-            textView.heightAnchor.constraint(equalToConstant: 140),
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
+            textField.widthAnchor.constraint(equalTo: widthAnchor),
+            textField.heightAnchor.constraint(equalToConstant: 40),
             
             // counterLable
-            counterLable.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: -5),
-            counterLable.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -5)
+            counterLable.bottomAnchor.constraint(equalTo: textField.bottomAnchor, constant: -5),
+            counterLable.trailingAnchor.constraint(equalTo: textField.trailingAnchor, constant: -5)
             
             
         ])
     }
-
+    
+    
 }
+
+
+

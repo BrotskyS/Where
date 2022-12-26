@@ -20,6 +20,8 @@ class AuthManager {
     
     private let firestoreManager = FirestoreManager()
     
+    var isAuth = false
+    
     func signUp(email: String, password: String, complition: @escaping (Error?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {

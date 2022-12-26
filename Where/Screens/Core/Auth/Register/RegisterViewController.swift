@@ -45,21 +45,21 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
     
     private let emailField: AuthTextFieldView = {
         let field = AuthTextFieldView()
-        field.configure(imageIcon: "envelope", placeholder: "Email")
+        field.configure(imageIcon: "envelope", placeholder: "Email", fieldType: .email)
         
         return field
     }()
     
     private let passwordField: AuthTextFieldView = {
         let field = AuthTextFieldView()
-        field.configure(imageIcon: "lock", placeholder: "Password", isSecure: true)
+        field.configure(imageIcon: "lock", placeholder: "Password", fieldType: .password, isSecure: true)
         
         return field
     }()
     
     private let passwordRepeateField: AuthTextFieldView = {
         let field = AuthTextFieldView()
-        field.configure(imageIcon: "lock", placeholder: "Repeat Password", isSecure: true)
+        field.configure(imageIcon: "lock", placeholder: "Repeat Password", fieldType: .password, isSecure: true)
         
         return field
     }()
@@ -98,7 +98,23 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
     private let googleButton: AuthButtonView = {
         let button = AuthButtonView(type: .system)
         button.configure(text: "Google")
+        button.backgroundColor = .systemGray5
+        button.setTitleColor(.label, for: .normal)
         
+        
+        let image = UIImageView()
+        image.image = UIImage(named: "google")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addSubview(image)
+        
+        NSLayoutConstraint.activate([
+            image.widthAnchor.constraint(equalToConstant: 30),
+            image.heightAnchor.constraint(equalToConstant: 30),
+            image.leadingAnchor.constraint(equalTo: button.leadingAnchor, constant: 30),
+            image.centerYAnchor.constraint(equalTo: button.centerYAnchor)
+        ])
         return button
     }()
     
@@ -111,7 +127,6 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationController?.isNavigationBarHidden = true
         
         configureViews()
         setupLayout()
@@ -157,34 +172,42 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
     @objc private func pressOnContinue() {
      
         // Check fields with regex
-        let validationResult =  validationManager.validateRegister(
+        let validationError =  validationManager.validateRegister(
             email: emailField.getText(),
             password: passwordField.getText(),
             passwordRepeate: passwordRepeateField.getText()
         )
-        if let validationResult = validationResult {
+        
+        guard let validationError = validationError else {
+            return signUp()
             
-            let alert = UIAlertController(title: "Error", message: validationResult.rawValue, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                print("Ok")
-            }))
-            self.present(alert, animated: true)
-            
-        } else {
-            guard let email = emailField.getText(), let password =  passwordField.getText() else {
-                return
-            }
-            AuthManager.shared.signUp(email: email, password: password) { [weak self] error in
-                if let error = error {
-                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                        print("Ok")
-                    }))
-                    self?.present(alert, animated: true)
-                } else {
-                    let vc = TabBarController()
-                    self?.navigationController?.pushViewController(vc, animated: true)
-                }
+        }
+        
+        switch validationError {
+            case .emailEmpty, .emailIsInvalide :
+                emailField.setError(message: validationError.rawValue)
+            case .passwordEmpty, .passwordIsInvalide:
+                passwordField.setError(message: validationError.rawValue)
+            case .passwordsNotSame:
+                passwordRepeateField.setError(message: validationError.rawValue)
+        }
+        
+    }
+    
+    private func signUp() {
+        guard let email = emailField.getText(), let password =  passwordField.getText() else {
+            return
+        }
+        AuthManager.shared.signUp(email: email, password: password) { [weak self] error in
+            if let error = error {
+                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                    print("Ok")
+                }))
+                self?.present(alert, animated: true)
+            } else {
+                let vc = TabBarController()
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
     }

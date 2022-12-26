@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+
 class AddViewController: UIViewController {
     
     lazy var scrollView: UIScrollView = {
@@ -52,7 +54,7 @@ class AddViewController: UIViewController {
     
     
     lazy var titleField: CustomTextFiledUIView = {
-       let field = CustomTextFiledUIView()
+        let field = CustomTextFiledUIView()
         field.configure(title: "Ad title", placeholder: "I lost my keys", maxWord: 60)
         
         
@@ -60,22 +62,22 @@ class AddViewController: UIViewController {
     }()
     
     lazy var descriptionField: CustomTextViewUIView = {
-       let field = CustomTextViewUIView()
+        let field = CustomTextViewUIView()
         field.configure(title: "Describe what you lost", placeholder: "", maxWord: 200)
-
-
+        
+        
         return field
     }()
     
     lazy var phoneNumberField: CustomTextFiledUIView = {
-       let field = CustomTextFiledUIView()
+        let field = CustomTextFiledUIView()
         field.configure(title: "Your Phone Number", placeholder: "+38067...", maxWord: nil)
         field.setKeyboardType(type: .phonePad)
         return field
     }()
     
     lazy var rewardFiled: CustomTextFiledUIView = {
-       let field = CustomTextFiledUIView()
+        let field = CustomTextFiledUIView()
         field.configure(title: "Specify the reward (option)", placeholder: "0$", maxWord: nil)
         field.setKeyboardType(type: .decimalPad)
         return field
@@ -97,12 +99,34 @@ class AddViewController: UIViewController {
         return button
     }()
     
+    let disposeBag = DisposeBag()
+    
+    let viewModel = AddViewModel()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .theme.background
         navigationItem.title = "Add"
         setupViews()
         setupLayout()
+        
+        setupBindings()
+        
+        
+        let vc = LoginViewController()
+        let nav = UINavigationController(rootViewController: vc)
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func setupBindings() {
+        titleField.textField.rx.text.bind(to: viewModel.titleSubject).disposed(by: disposeBag)
+        descriptionField.textView.rx.text.bind(to: viewModel.descriptionSubject).disposed(by: disposeBag)
+        
+        
+        viewModel.isValidForm.bind(to: saveButton.rx.isHidden).disposed(by: disposeBag)
     }
     
     private func setupViews() {
@@ -119,23 +143,21 @@ class AddViewController: UIViewController {
         saveButton.addTarget(self, action: #selector(tappedOnSaveButton), for: .touchUpInside)
         stackView.addArrangedSubview(saveButton)
         
-        
-        
     }
     
     @objc func segmentAction(_ segmentedControl: UISegmentedControl) {
-         switch (segmentedControl.selectedSegmentIndex) {
-         case 0:
-             break // Lost
-         case 1:
-             break // Found
-         default:
-             break
-         }
-     }
+        switch (segmentedControl.selectedSegmentIndex) {
+            case 0:
+                break // Lost
+            case 1:
+                break // Found
+            default:
+                break
+        }
+    }
     
     @objc private func tappedOnSaveButton() {
-       
+        
     }
     
     private func setupLayout() {

@@ -18,8 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         let window = UIWindow(frame: UIScreen.main.bounds)
         
-        window.rootViewController = TabBarController()
-        
+        if AuthManager.shared.isAuth {
+            let nav = UINavigationController(rootViewController:  LoginViewController())
+            window.rootViewController = nav
+        } else {
+            let nav = UINavigationController(rootViewController:  LoginViewController())
+            window.rootViewController = nav
+        }
+    
         self.window = window
         
         return true

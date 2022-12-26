@@ -17,8 +17,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        window.rootViewController = TabBarController()
-        window.makeKeyAndVisible()
+        if AuthManager.shared.isAuth {
+            window.rootViewController = LoginViewController()
+            window.makeKeyAndVisible()
+        } else {
+            let nav = UINavigationController(rootViewController:  LoginViewController())
+            window.rootViewController = nav
+            window.makeKeyAndVisible()
+        }
+        
+       
         
         self.window = window
     }

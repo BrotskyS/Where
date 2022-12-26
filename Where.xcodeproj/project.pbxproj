@@ -18,6 +18,7 @@
 		0D5EFAB2292BE08C006FC01F /* UITextField + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EFAB1292BE08C006FC01F /* UITextField + ext.swift */; };
 		0D5EFAB4292BF17F006FC01F /* PhotosUIVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EFAB3292BF17F006FC01F /* PhotosUIVIew.swift */; };
 		0D9892A4293A7F04004AE7B3 /* LostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9892A3293A7F04004AE7B3 /* LostItem.swift */; };
+		0D9892A6293B8FB2004AE7B3 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9892A5293B8FB2004AE7B3 /* AddViewModel.swift */; };
 		0DC0F10A2914525A00FB6D4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC0F1092914525A00FB6D4D /* AppDelegate.swift */; };
 		0DC0F10C2914525A00FB6D4D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC0F10B2914525A00FB6D4D /* SceneDelegate.swift */; };
 		0DC0F10E2914525A00FB6D4D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC0F10D2914525A00FB6D4D /* ViewController.swift */; };
@@ -61,6 +62,7 @@
 		0D5EFAB1292BE08C006FC01F /* UITextField + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + ext.swift"; sourceTree = "<group>"; };
 		0D5EFAB3292BF17F006FC01F /* PhotosUIVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUIVIew.swift; sourceTree = "<group>"; };
 		0D9892A3293A7F04004AE7B3 /* LostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostItem.swift; sourceTree = "<group>"; };
+		0D9892A5293B8FB2004AE7B3 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		0DC0F1062914525A00FB6D4D /* Where.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Where.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC0F1092914525A00FB6D4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DC0F10B2914525A00FB6D4D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,13 +110,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0D3B24D42923E9F2007E03F0 /* Controllers */ = {
+		0D3B24D42923E9F2007E03F0 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
 				0D3B24D62923EA03007E03F0 /* Other */,
 				0D3B24D52923E9F5007E03F0 /* Core */,
 			);
-			path = Controllers;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		0D3B24D52923E9F5007E03F0 /* Core */ = {
@@ -144,6 +146,7 @@
 			children = (
 				0D5EFAAE292BCD3E006FC01F /* Views */,
 				0D3B24DB2923EDD9007E03F0 /* AddViewController.swift */,
+				0D9892A5293B8FB2004AE7B3 /* AddViewModel.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -156,6 +159,22 @@
 				0D5EFAB3292BF17F006FC01F /* PhotosUIVIew.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0D9892A9293B9CF9004AE7B3 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				0DE1C0332933EE8B00C2C93A /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		0D9892AA293B9D0C004AE7B3 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				0DE1C026292D3B7A00C2C93A /* RegisterViewController.swift */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 		0DC0F0FD2914525A00FB6D4D = {
@@ -184,7 +203,7 @@
 				0DE1C028292D425300C2C93A /* Managers */,
 				0DE1C030292EC1E300C2C93A /* View */,
 				0DF69E8A293A695400F1E5FE /* Models */,
-				0D3B24D42923E9F2007E03F0 /* Controllers */,
+				0D3B24D42923E9F2007E03F0 /* Screens */,
 				0DC0F121291455B200FB6D4D /* Helpers */,
 				0DC0F10D2914525A00FB6D4D /* ViewController.swift */,
 				0DF69E6E2935210F00F1E5FE /* Base */,
@@ -237,8 +256,8 @@
 			isa = PBXGroup;
 			children = (
 				0DE1C02B292D4EC400C2C93A /* Views */,
-				0DE1C026292D3B7A00C2C93A /* RegisterViewController.swift */,
-				0DE1C0332933EE8B00C2C93A /* LoginViewController.swift */,
+				0D9892AA293B9D0C004AE7B3 /* Register */,
+				0D9892A9293B9CF9004AE7B3 /* Login */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -466,6 +485,7 @@
 				0DC0F120291454B700FB6D4D /* TabBarController.swift in Sources */,
 				0D3B24DC2923EDD9007E03F0 /* AddViewController.swift in Sources */,
 				0DF69E7629360EB900F1E5FE /* HomeCollectionViewCell.swift in Sources */,
+				0D9892A6293B8FB2004AE7B3 /* AddViewModel.swift in Sources */,
 				0D5EFAB0292BCD86006FC01F /* CustomTextFiledUIView.swift in Sources */,
 				0DC0F10A2914525A00FB6D4D /* AppDelegate.swift in Sources */,
 				0DC0F123291455C100FB6D4D /* UIColor + ext.swift in Sources */,

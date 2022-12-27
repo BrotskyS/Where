@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
+import GoogleSignIn
 
 class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeButtonDelegete {
     
@@ -38,7 +40,8 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         let title = UILabel()
         title.text = "Login"
         title.font = .systemFont(ofSize: 34, weight: .bold)
-        title.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         return title
         
@@ -163,6 +166,8 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         stackView.setCustomSpacing(0, after: deviderOr)
         stackView.addArrangedSubview(googleButton)
         
+        googleButton.addTarget(self, action: #selector(pressOnGoogle), for: .touchUpInside)
+        
         
         toRegister.configure(lableText: "First Time", buttonText: "Register")
         toRegister.delegete = self
@@ -195,6 +200,16 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         
     }
     
+    @objc func pressOnGoogle() {
+        AuthManager.shared.googleAuth(self) { [weak self] error in
+            if let error = error {
+                self?.errorAlert(message: error)
+            } else {
+                self?.changeRootViewController()
+            }
+        }
+    }
+    
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == "terms" {
@@ -216,16 +231,15 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         
         AuthManager.shared.signIn(email: email, password: password) { [weak self] error in
             if let error = error {
-                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                    print("Ok")
-                }))
-                self?.present(alert, animated: true)
+                self?.errorAlert(message: error)
             } else {
-                let vc = TabBarController()
-                self?.navigationController?.pushViewController(vc, animated: true)
+                self?.changeRootViewController()
             }
         }
+    }
+    
+    private func changeRootViewController() {
+        AuthManager.shared.changeRootViewController()
     }
     
     func didTapOnChangeType() {
@@ -253,6 +267,7 @@ extension LoginViewController {
     }
     
 }
+
 
 
 

@@ -158,6 +158,7 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
         
         
         stackView.addArrangedSubview(googleButton)
+        googleButton.addTarget(self, action: #selector(pressOnGoogle), for: .touchUpInside)
         
         toLogin.configure(lableText: "Joined us before?", buttonText: "Login")
         toLogin.delegete = self
@@ -194,22 +195,31 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
         
     }
     
+    @objc func pressOnGoogle() {
+        AuthManager.shared.googleAuth(self) { [weak self] error in
+            if let error = error {
+                self?.errorAlert(message: error)
+            } else {
+                self?.changeRootViewController()
+            }
+        }
+    }
+    
     private func signUp() {
         guard let email = emailField.getText(), let password =  passwordField.getText() else {
             return
         }
         AuthManager.shared.signUp(email: email, password: password) { [weak self] error in
             if let error = error {
-                let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-                    print("Ok")
-                }))
-                self?.present(alert, animated: true)
+                self?.errorAlert(message: error)
             } else {
-                let vc = TabBarController()
-                self?.navigationController?.pushViewController(vc, animated: true)
+                self?.changeRootViewController()
             }
         }
+    }
+    
+    private func changeRootViewController() {
+        AuthManager.shared.changeRootViewController()
     }
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
@@ -238,7 +248,7 @@ extension RegisterViewController {
             stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            stackView.bottomAnchor.constraint(equalTo: view.keyboardLayoutGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
         ])
     }

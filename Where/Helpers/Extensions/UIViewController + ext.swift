@@ -20,4 +20,16 @@ extension UIViewController {
             view.endEditing(true) // resign first responder
         }
     }
+    
+    /**
+            Create and show default IOS error alert
+     */
+    func errorAlert(message: Error?) {
+        let alert = UIAlertController(title: "Error", message: message?.localizedDescription ?? "Something went wrong", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            print("Ok")
+        }))
+        
+        self.present(alert, animated: true)
+    }
 }

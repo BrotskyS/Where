@@ -15,6 +15,7 @@ pod 'FirebaseCore'
 pod 'FirebaseFirestoreSwift'
 pod 'RxSwift'
 pod 'RxCocoa'
+pod 'GoogleSignIn'
 
   # Pods for Where
 

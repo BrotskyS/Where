@@ -18,7 +18,7 @@ class FirestoreManager {
     func createUser(_ user: User) {
         do {
             try db.collection("users")
-                .document("123")
+                .document()
                 .setData(from: user) { error in
                     print("error: \(String(describing: error))")
                 }
@@ -38,6 +38,7 @@ class FirestoreManager {
         }
       
     }
+    
 }
 
 

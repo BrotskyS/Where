@@ -176,6 +176,8 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         
         
         
+        
+        
     }
     
     @objc func pressOnContinue() {

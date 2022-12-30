@@ -18,7 +18,6 @@
 		0D5EFAB2292BE08C006FC01F /* UITextField + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EFAB1292BE08C006FC01F /* UITextField + ext.swift */; };
 		0D5EFAB4292BF17F006FC01F /* PhotosUIVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EFAB3292BF17F006FC01F /* PhotosUIVIew.swift */; };
 		0D9892A4293A7F04004AE7B3 /* LostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9892A3293A7F04004AE7B3 /* LostItem.swift */; };
-		0D9892A6293B8FB2004AE7B3 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9892A5293B8FB2004AE7B3 /* AddViewModel.swift */; };
 		0DC0F10A2914525A00FB6D4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC0F1092914525A00FB6D4D /* AppDelegate.swift */; };
 		0DC0F10C2914525A00FB6D4D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC0F10B2914525A00FB6D4D /* SceneDelegate.swift */; };
 		0DC0F10E2914525A00FB6D4D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC0F10D2914525A00FB6D4D /* ViewController.swift */; };
@@ -47,6 +46,9 @@
 		0DF69E89293A1A6F00F1E5FE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DF69E88293A1A6F00F1E5FE /* GoogleService-Info.plist */; };
 		0DF69E8C293A696200F1E5FE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E8B293A696200F1E5FE /* User.swift */; };
 		0DF69E8E293A69EA00F1E5FE /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E8D293A69EA00F1E5FE /* FirestoreManager.swift */; };
+		0DFEA235295CF73300FCF99D /* ZoomImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFEA234295CF73300FCF99D /* ZoomImageViewController.swift */; };
+		0DFEA237295CF75B00FCF99D /* ImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFEA236295CF75B00FCF99D /* ImageItem.swift */; };
+		0DFEA23A295DE04200FCF99D /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DFEA239295DE04200FCF99D /* ImagePicker.swift */; };
 		FDC5E4240A06212B6A3A319E /* Pods_Where.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6AFE1B140D117A89698A7F2 /* Pods_Where.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +64,6 @@
 		0D5EFAB1292BE08C006FC01F /* UITextField + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + ext.swift"; sourceTree = "<group>"; };
 		0D5EFAB3292BF17F006FC01F /* PhotosUIVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUIVIew.swift; sourceTree = "<group>"; };
 		0D9892A3293A7F04004AE7B3 /* LostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostItem.swift; sourceTree = "<group>"; };
-		0D9892A5293B8FB2004AE7B3 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
 		0DC0F1062914525A00FB6D4D /* Where.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Where.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC0F1092914525A00FB6D4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DC0F10B2914525A00FB6D4D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +94,9 @@
 		0DF69E88293A1A6F00F1E5FE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0DF69E8B293A696200F1E5FE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0DF69E8D293A69EA00F1E5FE /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		0DFEA234295CF73300FCF99D /* ZoomImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomImageViewController.swift; sourceTree = "<group>"; };
+		0DFEA236295CF75B00FCF99D /* ImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
+		0DFEA239295DE04200FCF99D /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		684302E5DF4D6788FB3EDF6B /* Pods-Where.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Where.release.xcconfig"; path = "Target Support Files/Pods-Where/Pods-Where.release.xcconfig"; sourceTree = "<group>"; };
 		6F204F0B5A40275066C116B1 /* Pods-Where.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Where.debug.xcconfig"; path = "Target Support Files/Pods-Where/Pods-Where.debug.xcconfig"; sourceTree = "<group>"; };
 		F6AFE1B140D117A89698A7F2 /* Pods_Where.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Where.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +140,8 @@
 		0D3B24D62923EA03007E03F0 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				0DFEA238295DDFED00FCF99D /* ImagePicker */,
+				0DFEA233295CF71A00FCF99D /* ZoomImage */,
 				0DF69E792936542300F1E5FE /* LostItem */,
 			);
 			path = Other;
@@ -146,7 +152,6 @@
 			children = (
 				0D5EFAAE292BCD3E006FC01F /* Views */,
 				0D3B24DB2923EDD9007E03F0 /* AddViewController.swift */,
-				0D9892A5293B8FB2004AE7B3 /* AddViewModel.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -340,8 +345,25 @@
 			children = (
 				0DF69E8B293A696200F1E5FE /* User.swift */,
 				0D9892A3293A7F04004AE7B3 /* LostItem.swift */,
+				0DFEA236295CF75B00FCF99D /* ImageItem.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		0DFEA233295CF71A00FCF99D /* ZoomImage */ = {
+			isa = PBXGroup;
+			children = (
+				0DFEA234295CF73300FCF99D /* ZoomImageViewController.swift */,
+			);
+			path = ZoomImage;
+			sourceTree = "<group>";
+		};
+		0DFEA238295DDFED00FCF99D /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				0DFEA239295DE04200FCF99D /* ImagePicker.swift */,
+			);
+			path = ImagePicker;
 			sourceTree = "<group>";
 		};
 		4F01DDA16BBEA8F3A7FAF85B /* Pods */ = {
@@ -485,7 +507,6 @@
 				0DC0F120291454B700FB6D4D /* TabBarController.swift in Sources */,
 				0D3B24DC2923EDD9007E03F0 /* AddViewController.swift in Sources */,
 				0DF69E7629360EB900F1E5FE /* HomeCollectionViewCell.swift in Sources */,
-				0D9892A6293B8FB2004AE7B3 /* AddViewModel.swift in Sources */,
 				0D5EFAB0292BCD86006FC01F /* CustomTextFiledUIView.swift in Sources */,
 				0DC0F10A2914525A00FB6D4D /* AppDelegate.swift in Sources */,
 				0DC0F123291455C100FB6D4D /* UIColor + ext.swift in Sources */,
@@ -511,6 +532,9 @@
 				0DE1C027292D3B7A00C2C93A /* RegisterViewController.swift in Sources */,
 				0D44418F292CE3FC00B96ABD /* CustomTextViewUIView.swift in Sources */,
 				0D5EFAB2292BE08C006FC01F /* UITextField + ext.swift in Sources */,
+				0DFEA235295CF73300FCF99D /* ZoomImageViewController.swift in Sources */,
+				0DFEA237295CF75B00FCF99D /* ImageItem.swift in Sources */,
+				0DFEA23A295DE04200FCF99D /* ImagePicker.swift in Sources */,
 				0D3B24E32923F57E007E03F0 /* UIView + ext.swift in Sources */,
 				0DF69E7E293906B800F1E5FE /* UILable + ext.swift in Sources */,
 			);

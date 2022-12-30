@@ -8,10 +8,14 @@
 import UIKit
 
 
+protocol PhotosUIVIewDelegete: AnyObject {
+    func pressOnImageItem(id: String?)
+}
+
 class PhotosUIVIew: UIView {
     
     // MARK: Components
-    private let mainPhotoView: UIView = {
+    private var mainEmptyPhotoView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         let image = UIImageView()
@@ -41,26 +45,50 @@ class PhotosUIVIew: UIView {
         
         return view
     }()
-
+    
+    private let mainPhotoView: UIImageView = {
+       let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFill
+        image.clipsToBounds = true
+        image.isUserInteractionEnabled = true
+        image.backgroundColor = .red
+        image.isHidden = true
+        
+        return image
+    }()
+    
     
     var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
+        stackView.distribution = .fillEqually
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
     
+    var delegete: PhotosUIVIewDelegete?
+    
+    
     // MARK: Lifecycle
     override init(frame: CGRect) {
         super.init(frame: .zero)
+        
+        let gestureEmpty = UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage))
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage))
+        
+        mainEmptyPhotoView.addGestureRecognizer(gestureEmpty)
+        mainPhotoView.addGestureRecognizer(gesture)
+        
+        addSubview(mainEmptyPhotoView)
         addSubview(mainPhotoView)
         addSubview(stackView)
-    
+        
         clipsToBounds = true
         layer.cornerRadius = 5
+        
         
         configureStackView()
         addConstraints()
@@ -72,22 +100,75 @@ class PhotosUIVIew: UIView {
     }
     
     // MARK: Private
-
+    
+    
+    @objc func pressOnImage(sender : UITapGestureRecognizer) {
+        let id = sender.view?.accessibilityIdentifier
+        delegete?.pressOnImageItem(id: id)
+    }
+    
     
     private func configureStackView() {
-        let lable = UILabel()
-        lable.text = "Hello"
-        lable.textColor = .label
+        let emptyImage1 =   EpmtyImageView()
+        emptyImage1.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage)))
         
-        stackView.addArrangedSubview(EpmtyImageView())
-        stackView.addArrangedSubview(EpmtyImageView())
-        stackView.addArrangedSubview(EpmtyImageView())
-        stackView.addArrangedSubview(EpmtyImageView())
+        let emptyImage2 =   EpmtyImageView()
+        emptyImage2.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage)))
+        
+        let emptyImage3 =   EpmtyImageView()
+        emptyImage3.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage)))
+        
+        let emptyImage4 =   EpmtyImageView()
+        emptyImage4.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage)))
+        
+        stackView.addArrangedSubview(emptyImage1)
+        stackView.addArrangedSubview(emptyImage2)
+        stackView.addArrangedSubview(emptyImage3)
+        stackView.addArrangedSubview(emptyImage4)
+    }
+    
+    func setNewImage(image: ImageItem, at: Int) {
+        let imageView: UIImageView = {
+            let imageView = UIImageView()
+            imageView.image = image.image
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .scaleAspectFill
+            imageView.backgroundColor = .red
+            imageView.clipsToBounds = true
+            imageView.accessibilityIdentifier = image.id.uuidString
+            
+            NSLayoutConstraint.activate([
+                imageView.widthAnchor.constraint(greaterThanOrEqualToConstant: 50),
+                imageView.heightAnchor.constraint(equalToConstant: 50),
+            ])
+            
+            let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage))
+            
+            imageView.isUserInteractionEnabled = true
+            imageView.addGestureRecognizer(gesture)
+            
+            return imageView
+        }()
+        
+        if at == 0 {
+            mainPhotoView.image = image.image
+            mainPhotoView.isHidden = false
+            mainPhotoView.accessibilityIdentifier = image.id.uuidString
+            
+//            mainEmptyPhotoView.isHidden = true
+        } else {
+            stackView.arrangedSubviews[at - 1].removeFromSuperview()
+            stackView.insertArrangedSubview(imageView, at: at - 1)
+        }
+        
     }
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
             heightAnchor.constraint(equalToConstant: 250),
+            
+            mainEmptyPhotoView.widthAnchor.constraint(equalTo: widthAnchor),
+            mainEmptyPhotoView.heightAnchor.constraint(equalTo: heightAnchor, constant: -60),
             
             mainPhotoView.widthAnchor.constraint(equalTo: widthAnchor),
             mainPhotoView.heightAnchor.constraint(equalTo: heightAnchor, constant: -60),
@@ -98,9 +179,6 @@ class PhotosUIVIew: UIView {
         ])
     }
 }
-
-
-
 
 
 
@@ -131,3 +209,5 @@ class EpmtyImageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+

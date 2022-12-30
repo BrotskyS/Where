@@ -111,17 +111,16 @@ class CustomTextFiledUIView: UIView {
     private func addConstraints() {
         NSLayoutConstraint.activate([
             // basic
-            widthAnchor.constraint(equalToConstant: 100),
             heightAnchor.constraint(equalToConstant: 70),
             
-            // title
+//             title
             titleLable.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             
             // textField
             textField.bottomAnchor.constraint(equalTo: bottomAnchor),
             textField.widthAnchor.constraint(equalTo: widthAnchor),
             textField.heightAnchor.constraint(equalToConstant: 40),
-            
+
             // counterLable
             counterLable.bottomAnchor.constraint(equalTo: textField.bottomAnchor, constant: -5),
             counterLable.trailingAnchor.constraint(equalTo: textField.trailingAnchor, constant: -5)

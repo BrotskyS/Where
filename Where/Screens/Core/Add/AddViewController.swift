@@ -6,9 +6,10 @@
 //
 
 import UIKit
-import RxSwift
+
 
 class AddViewController: UIViewController {
+
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -52,6 +53,8 @@ class AddViewController: UIViewController {
         return photosView
     }()
     
+    static let maxImagesCount = 5
+    
     
     lazy var titleField: CustomTextFiledUIView = {
         let field = CustomTextFiledUIView()
@@ -83,6 +86,7 @@ class AddViewController: UIViewController {
         return field
     }()
     
+    
     private let saveButton: UIButton = {
         let button =  UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -99,9 +103,9 @@ class AddViewController: UIViewController {
         return button
     }()
     
-    let disposeBag = DisposeBag()
     
-    let viewModel = AddViewModel()
+    private let imagePicker = ImagePicker()
+    private var images: [ImageItem] = []
     
     
     
@@ -112,22 +116,8 @@ class AddViewController: UIViewController {
         setupViews()
         setupLayout()
         
-        setupBindings()
-        
-        
-        let vc = LoginViewController()
-        let nav = UINavigationController(rootViewController: vc)
-        
-        navigationController?.pushViewController(vc, animated: true)
     }
     
-    func setupBindings() {
-        titleField.textField.rx.text.bind(to: viewModel.titleSubject).disposed(by: disposeBag)
-        descriptionField.textView.rx.text.bind(to: viewModel.descriptionSubject).disposed(by: disposeBag)
-        
-        
-        viewModel.isValidForm.bind(to: saveButton.rx.isHidden).disposed(by: disposeBag)
-    }
     
     private func setupViews() {
         view.addSubview(scrollView)
@@ -142,6 +132,10 @@ class AddViewController: UIViewController {
         
         saveButton.addTarget(self, action: #selector(tappedOnSaveButton), for: .touchUpInside)
         stackView.addArrangedSubview(saveButton)
+        
+        
+        imagePicker.delegete = self
+        photosView.delegete = self
         
     }
     
@@ -159,6 +153,7 @@ class AddViewController: UIViewController {
     @objc private func tappedOnSaveButton() {
         
     }
+    
     
     private func setupLayout() {
         
@@ -178,7 +173,29 @@ class AddViewController: UIViewController {
     
 }
 
+extension AddViewController: ImagePickerDelegete {
+    func onSelectImages(images: [UIImage]) {
+        
+        
+        images.forEach {item in
+            self.images.append(ImageItem(image: item))
+        }
+        
+        self.images.enumerated().forEach { index, item in
+            photosView.setNewImage(image: item, at: index)
+        }
+    }
+}
 
 
-
-
+extension AddViewController: PhotosUIVIewDelegete {
+    func pressOnImageItem(id: String?) {
+        // if id is nil, user presed on empty image
+        if let id = id {
+            
+        } else {
+            let selectionLimit = AddViewController.maxImagesCount - images.count
+            self.imagePicker.openPicker(self, selectionLimit: selectionLimit)
+        }
+    }
+}

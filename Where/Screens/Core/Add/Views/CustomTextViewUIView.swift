@@ -100,7 +100,6 @@ class CustomTextViewUIView: UIView, UITextViewDelegate {
     private func addConstraints() {
         NSLayoutConstraint.activate([
             // basic
-            widthAnchor.constraint(equalToConstant: 100),
             heightAnchor.constraint(equalToConstant: 160),
             
             // title

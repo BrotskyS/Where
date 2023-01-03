@@ -8,11 +8,11 @@
 import UIKit
 
 
-protocol PhotosUIVIewDelegete: AnyObject {
+protocol PhotosUIViewDelegate: AnyObject {
     func pressOnImageItem(id: String?)
 }
 
-class PhotosUIVIew: UIView {
+class PhotosUIView: UIView {
     
     // MARK: Components
     private var mainEmptyPhotoView: UIView = {
@@ -20,8 +20,8 @@ class PhotosUIVIew: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        let lable = UILabel()
-        lable.translatesAutoresizingMaskIntoConstraints = false
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         
         // image
         view.addSubview(image)
@@ -31,12 +31,12 @@ class PhotosUIVIew: UIView {
         image.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         image.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -15).isActive = true
         
-        // lable
-        view.addSubview(lable)
-        lable.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        lable.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 15).isActive = true
-        lable.font = .preferredFont(forTextStyle: .headline)
-        lable.text = "Add photo"
+        // label
+        view.addSubview(label)
+        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 15).isActive = true
+        label.font = .preferredFont(forTextStyle: .headline)
+        label.text = "Add photo"
         
         
         // view
@@ -69,7 +69,7 @@ class PhotosUIVIew: UIView {
         return stackView
     }()
     
-    var delegete: PhotosUIVIewDelegete?
+    var delegate: PhotosUIViewDelegate?
     
     
     // MARK: Lifecycle
@@ -104,21 +104,21 @@ class PhotosUIVIew: UIView {
     
     @objc func pressOnImage(sender : UITapGestureRecognizer) {
         let id = sender.view?.accessibilityIdentifier
-        delegete?.pressOnImageItem(id: id)
+        delegate?.pressOnImageItem(id: id)
     }
     
     
     private func configureStackView() {
-        let emptyImage1 =   EpmtyImageView()
+        let emptyImage1 =   EmptyImageView()
         emptyImage1.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage)))
         
-        let emptyImage2 =   EpmtyImageView()
+        let emptyImage2 =   EmptyImageView()
         emptyImage2.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage)))
         
-        let emptyImage3 =   EpmtyImageView()
+        let emptyImage3 =   EmptyImageView()
         emptyImage3.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage)))
         
-        let emptyImage4 =   EpmtyImageView()
+        let emptyImage4 =   EmptyImageView()
         emptyImage4.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(self.pressOnImage)))
         
         stackView.addArrangedSubview(emptyImage1)
@@ -182,7 +182,7 @@ class PhotosUIVIew: UIView {
 
 
 
-class EpmtyImageView: UIView {
+class EmptyImageView: UIView {
     let image: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false

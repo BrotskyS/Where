@@ -10,17 +10,17 @@ import PhotosUI
 import UIKit
 
 
-protocol ImagePickerDelegete {
+protocol ImagePickerDelegate {
     func onSelectImages(images: [UIImage])
 }
 
 class ImagePicker: PHPickerViewControllerDelegate{
-    var delegete: ImagePickerDelegete?
+    var delegate: ImagePickerDelegate?
     
 
     
-    init(delegete: ImagePickerDelegete? = nil) {
-        self.delegete = delegete
+    init(delegate: ImagePickerDelegate? = nil) {
+        self.delegate = delegate
     }
     
     func openPicker(_ viewController: UIViewController, selectionLimit: Int) {
@@ -52,7 +52,7 @@ class ImagePicker: PHPickerViewControllerDelegate{
         }
 
         myGroup.notify(queue: .main) {
-            self.delegete?.onSelectImages(images: images)
+            self.delegate?.onSelectImages(images: images)
         }
 
     }

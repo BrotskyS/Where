@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D0CAF6F2964744B0056330F /* AddPhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0CAF6E2964744B0056330F /* AddPhotoViewerViewController.swift */; };
+		0D0CAF72296474BC0056330F /* AllPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0CAF71296474BC0056330F /* AllPhotosViewController.swift */; };
 		0D3B24D82923EA32007E03F0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3B24D72923EA32007E03F0 /* HomeViewController.swift */; };
 		0D3B24DA2923EDD0007E03F0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3B24D92923EDD0007E03F0 /* MapViewController.swift */; };
 		0D3B24DC2923EDD9007E03F0 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3B24DB2923EDD9007E03F0 /* AddViewController.swift */; };
@@ -53,6 +55,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D0CAF6E2964744B0056330F /* AddPhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoViewerViewController.swift; sourceTree = "<group>"; };
+		0D0CAF71296474BC0056330F /* AllPhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPhotosViewController.swift; sourceTree = "<group>"; };
 		0D3B24D72923EA32007E03F0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0D3B24D92923EDD0007E03F0 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		0D3B24DB2923EDD9007E03F0 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +118,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D0CAF6C2964743D0056330F /* AddPhotoViewer */ = {
+			isa = PBXGroup;
+			children = (
+				0D0CAF6E2964744B0056330F /* AddPhotoViewerViewController.swift */,
+				0D0CAF71296474BC0056330F /* AllPhotosViewController.swift */,
+			);
+			path = AddPhotoViewer;
+			sourceTree = "<group>";
+		};
 		0D3B24D42923E9F2007E03F0 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +153,7 @@
 		0D3B24D62923EA03007E03F0 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				0D0CAF6C2964743D0056330F /* AddPhotoViewer */,
 				0DFEA238295DDFED00FCF99D /* ImagePicker */,
 				0DFEA233295CF71A00FCF99D /* ZoomImage */,
 				0DF69E792936542300F1E5FE /* LostItem */,
@@ -508,6 +522,7 @@
 				0D3B24DC2923EDD9007E03F0 /* AddViewController.swift in Sources */,
 				0DF69E7629360EB900F1E5FE /* HomeCollectionViewCell.swift in Sources */,
 				0D5EFAB0292BCD86006FC01F /* CustomTextFiledUIView.swift in Sources */,
+				0D0CAF72296474BC0056330F /* AllPhotosViewController.swift in Sources */,
 				0DC0F10A2914525A00FB6D4D /* AppDelegate.swift in Sources */,
 				0DC0F123291455C100FB6D4D /* UIColor + ext.swift in Sources */,
 				0DE1C02D292D4EE400C2C93A /* AuthTextFieldView.swift in Sources */,
@@ -525,6 +540,7 @@
 				0DF69E7C2938FC3C00F1E5FE /* LostItemUserView.swift in Sources */,
 				0DE1C032292EC1F300C2C93A /* DeviderView.swift in Sources */,
 				0DF69E8C293A696200F1E5FE /* User.swift in Sources */,
+				0D0CAF6F2964744B0056330F /* AddPhotoViewerViewController.swift in Sources */,
 				0DF69E6D2935209A00F1E5FE /* UIViewController + ext.swift in Sources */,
 				0D5EFAB4292BF17F006FC01F /* PhotosUIVIew.swift in Sources */,
 				0DF69E80293910AC00F1E5FE /* LostItemLocationView.swift in Sources */,

@@ -47,8 +47,8 @@ class AddViewController: UIViewController {
         return view
     }()
     
-    lazy var photosView: PhotosUIVIew = {
-        let photosView = PhotosUIVIew()
+    lazy var photosView: PhotosUIView = {
+        let photosView = PhotosUIView()
         
         return photosView
     }()
@@ -134,8 +134,8 @@ class AddViewController: UIViewController {
         stackView.addArrangedSubview(saveButton)
         
         
-        imagePicker.delegete = self
-        photosView.delegete = self
+        imagePicker.delegate = self
+        photosView.delegate = self
         
     }
     
@@ -173,9 +173,8 @@ class AddViewController: UIViewController {
     
 }
 
-extension AddViewController: ImagePickerDelegete {
+extension AddViewController: ImagePickerDelegate {
     func onSelectImages(images: [UIImage]) {
-        
         
         images.forEach {item in
             self.images.append(ImageItem(image: item))
@@ -188,11 +187,14 @@ extension AddViewController: ImagePickerDelegete {
 }
 
 
-extension AddViewController: PhotosUIVIewDelegete {
+extension AddViewController: PhotosUIViewDelegate {
     func pressOnImageItem(id: String?) {
-        // if id is nil, user presed on empty image
+        // if id is nil, user pressed on empty image
         if let id = id {
+            let vc = AddPhotoViewerViewController()
+            vc.modalPresentationStyle = .fullScreen
             
+            self.present(vc, animated: true)
         } else {
             let selectionLimit = AddViewController.maxImagesCount - images.count
             self.imagePicker.openPicker(self, selectionLimit: selectionLimit)

@@ -105,6 +105,7 @@ class AddViewController: UIViewController {
     
     
     private let imagePicker = ImagePicker()
+    private let photoViewer = AddPhotoViewerViewController()
     private var images: [ImageItem] = []
     
     
@@ -136,6 +137,9 @@ class AddViewController: UIViewController {
         
         imagePicker.delegate = self
         photosView.delegate = self
+        
+        photoViewer.delegate = self
+        photoViewer.dataSource = self
         
     }
     
@@ -191,13 +195,24 @@ extension AddViewController: PhotosUIViewDelegate {
     func pressOnImageItem(id: String?) {
         // if id is nil, user pressed on empty image
         if let id = id {
-            let vc = AddPhotoViewerViewController()
-            vc.modalPresentationStyle = .fullScreen
-            
-            self.present(vc, animated: true)
+            photoViewer.selectedImageId = id
+            photoViewer.reloadData()
+            let nav = UINavigationController(rootViewController: photoViewer)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true)
         } else {
             let selectionLimit = AddViewController.maxImagesCount - images.count
             self.imagePicker.openPicker(self, selectionLimit: selectionLimit)
         }
     }
+}
+
+extension AddViewController: AddPhotoViewerViewControllerDelegate, AddPhotoViewerViewControllerDataSource {
+    func images(_ photoViewer: AddPhotoViewerViewController) -> [ImageItem] {
+        return images
+    }
+    
+  
+    
+    
 }

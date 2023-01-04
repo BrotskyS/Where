@@ -33,6 +33,7 @@
 		0DE1C02F292D832900C2C93A /* AuthButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE1C02E292D832900C2C93A /* AuthButtonView.swift */; };
 		0DE1C032292EC1F300C2C93A /* DeviderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE1C031292EC1F300C2C93A /* DeviderView.swift */; };
 		0DE1C0342933EE8B00C2C93A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE1C0332933EE8B00C2C93A /* LoginViewController.swift */; };
+		0DF34F6A2965A84B00A977C9 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF34F692965A84B00A977C9 /* PhotoCell.swift */; };
 		0DF69E6B29351A8D00F1E5FE /* DeviderOr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E6A29351A8D00F1E5FE /* DeviderOr.swift */; };
 		0DF69E6D2935209A00F1E5FE /* UIViewController + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E6C2935209A00F1E5FE /* UIViewController + ext.swift */; };
 		0DF69E702935212100F1E5FE /* WABaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DF69E6F2935212100F1E5FE /* WABaseController.swift */; };
@@ -83,6 +84,7 @@
 		0DE1C02E292D832900C2C93A /* AuthButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButtonView.swift; sourceTree = "<group>"; };
 		0DE1C031292EC1F300C2C93A /* DeviderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviderView.swift; sourceTree = "<group>"; };
 		0DE1C0332933EE8B00C2C93A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		0DF34F692965A84B00A977C9 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		0DF69E6A29351A8D00F1E5FE /* DeviderOr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviderOr.swift; sourceTree = "<group>"; };
 		0DF69E6C2935209A00F1E5FE /* UIViewController + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + ext.swift"; sourceTree = "<group>"; };
 		0DF69E6F2935212100F1E5FE /* WABaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WABaseController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				0D0CAF6E2964744B0056330F /* AddPhotoViewerViewController.swift */,
 				0D0CAF71296474BC0056330F /* AllPhotosViewController.swift */,
+				0DF34F692965A84B00A977C9 /* PhotoCell.swift */,
 			);
 			path = AddPhotoViewer;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				0DF69E7C2938FC3C00F1E5FE /* LostItemUserView.swift in Sources */,
 				0DE1C032292EC1F300C2C93A /* DeviderView.swift in Sources */,
 				0DF69E8C293A696200F1E5FE /* User.swift in Sources */,
+				0DF34F6A2965A84B00A977C9 /* PhotoCell.swift in Sources */,
 				0D0CAF6F2964744B0056330F /* AddPhotoViewerViewController.swift in Sources */,
 				0DF69E6D2935209A00F1E5FE /* UIViewController + ext.swift in Sources */,
 				0D5EFAB4292BF17F006FC01F /* PhotosUIVIew.swift in Sources */,

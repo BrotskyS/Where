@@ -127,7 +127,27 @@ class PhotosUIView: UIView {
         stackView.addArrangedSubview(emptyImage4)
     }
     
-    func setNewImage(image: ImageItem, at: Int) {
+    func setImages(images: [ImageItem]) {
+        
+        // reset stackView
+        
+        for view in stackView.subviews{
+            
+            view.removeFromSuperview()
+        }
+        
+        mainPhotoView.image = nil
+        mainPhotoView.isHidden = true
+        mainPhotoView.accessibilityIdentifier = nil
+        
+        configureStackView()
+        
+        images.enumerated().forEach { index, item in
+            setNewImage(image: item, at: index)
+        }
+    }
+    
+    private func setNewImage(image: ImageItem, at: Int) {
         let imageView: UIImageView = {
             let imageView = UIImageView()
             imageView.image = image.image
@@ -157,6 +177,7 @@ class PhotosUIView: UIView {
             
 //            mainEmptyPhotoView.isHidden = true
         } else {
+            
             stackView.arrangedSubviews[at - 1].removeFromSuperview()
             stackView.insertArrangedSubview(imageView, at: at - 1)
         }

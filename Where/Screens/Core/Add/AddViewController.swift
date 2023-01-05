@@ -184,9 +184,7 @@ extension AddViewController: ImagePickerDelegate {
             self.images.append(ImageItem(image: item))
         }
         
-        self.images.enumerated().forEach { index, item in
-            photosView.setNewImage(image: item, at: index)
-        }
+        photosView.setImages(images: self.images)
     }
 }
 
@@ -208,11 +206,16 @@ extension AddViewController: PhotosUIViewDelegate {
 }
 
 extension AddViewController: AddPhotoViewerViewControllerDelegate, AddPhotoViewerViewControllerDataSource {
+    func didChangeImages(images: [ImageItem]) {
+        
+        self.images = images
+        
+        print(images.count)
+        photosView.setImages(images: self.images)
+    }
+    
     func images(_ photoViewer: AddPhotoViewerViewController) -> [ImageItem] {
         return images
     }
-    
-  
-    
     
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AddPhotoViewerViewControllerDelegate: AnyObject {
-    
+    func didChangeImages(images: [ImageItem])
 }
 
 
@@ -53,6 +53,7 @@ class AddPhotoViewerViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(pressOnSaveButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(pressOnCloseButton))
         
         allPhotosViewController.delegate = self
         allPhotosViewController.dataSource = self
@@ -99,7 +100,10 @@ class AddPhotoViewerViewController: UIViewController {
         self.images = images
         allPhotosViewController.images = images
         
+        allPhotosViewController.reloadData()
+        
         configure()
+        
     }
     
     
@@ -135,6 +139,22 @@ class AddPhotoViewerViewController: UIViewController {
     
     @objc private func pressOnSaveButton() {
         self.dismiss(animated: true)
+        self.dismiss(animated: true)
+        
+        onChangeImages()
+    }
+    
+    
+    @objc private func pressOnCloseButton() {
+        self.dismiss(animated: true)
+        self.dismiss(animated: true)
+        
+      
+    }
+    
+    private func onChangeImages() {
+        
+        delegate?.didChangeImages(images: images)
     }
 }
 
@@ -152,18 +172,27 @@ extension AddPhotoViewerViewController: AllPhotosViewControllerDelegate, AllPhot
     }
  
     func didChangeImages(images: [ImageItem]) {
+        self.images = images
+        
+        // check if image exist
+        
+        let currentImage = images.first(where: {$0.id.uuidString == selectedImageId})
+        
+        if currentImage == nil && !images.isEmpty {
+            imageView.image = images.first?.image
+            selectedImageId = images.first?.id.uuidString
+        } else if  currentImage == nil && images.isEmpty {
+            imageView.image = nil
+        }
         
     }
     
     func didSelect(didSelectRowAt indexPath: IndexPath) {
-        let newImage = images[indexPath.row].image
-        imageView.image = newImage
+        let newImage = images[indexPath.row]
+        imageView.image = newImage.image
         
-        if let sheet =  allPhotosViewController.sheetPresentationController {
-            sheet.animateChanges {
-                sheet.selectedDetentIdentifier = .large
-            }
-        }
+        selectedImageId = newImage.id.uuidString
+        
     }
     
 }

@@ -44,14 +44,9 @@ class AllPhotosViewController: UIViewController {
         tableView.allowsSelection = true
         tableView.isUserInteractionEnabled = true
         tableView.allowsSelectionDuringEditing = true
-        
-        
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.setEditing(true, animated: true)
-//        tableView.selectRow(at: IndexPath(row: <#T##Int#>, section: 0), animated: false, scrollPosition: .none)
-        
-        
+        tableView.allowsSelection = false
 
     
         NSLayoutConstraint.activate([
@@ -63,11 +58,20 @@ class AllPhotosViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
     }
     
-  
+    
+    func reloadData() {
+        tableView.reloadData()
+    }
+    
+    private func onChangeImages() {
+        delegate?.didChangeImages(images: images)
+    }
+    
+    
+    
+    
    
 }
 
@@ -81,37 +85,49 @@ extension AllPhotosViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PhotoCell
         let image = images[indexPath.row].image
         
-        
-        
-        
-        cell.configure(image: image)
-        
+        cell.configure(image: image, isSelected:  dataSource!.isSelectedImage(self, forRowAt: indexPath))
         
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         delegate?.didSelect(didSelectRowAt: indexPath)
+        tableView.reloadData()
     }
     
     
+    // Moving
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        images.swapAt(sourceIndexPath.row, destinationIndexPath.row)
         
+        onChangeImages()
     }
     
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        let isSelected = dataSource?.isSelectedImage(self, forRowAt: indexPath)
-        
-        if let isSelected = isSelected {
-            cell.setSelected(isSelected, animated: true)
+    
+    // Delete
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            
+            tableView.beginUpdates()
+            
+            images.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.endUpdates()
+            
+            onChangeImages()
+            
+            tableView.reloadData()
+            
+      
         }
-       
     }
-    
     
    
 }

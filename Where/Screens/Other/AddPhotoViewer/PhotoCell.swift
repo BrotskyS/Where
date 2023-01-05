@@ -14,10 +14,13 @@ class PhotoCell: UITableViewCell {
         image.layer.cornerRadius = 10
         image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFill
         
         
         return image
     }()
+    
+     var isSelectedCustom = false
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,16 +28,22 @@ class PhotoCell: UITableViewCell {
         
         configureConstraints()
         
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(image: UIImage) {
+    func configure(image: UIImage, isSelected: Bool) {
         self.image.image = image
         
+        self.backgroundColor = isSelected ? .systemGray5 : .clear
+        
+        
     }
+    
+    
     
     private func configureConstraints() {
         NSLayoutConstraint.activate([

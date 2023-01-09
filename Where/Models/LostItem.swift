@@ -12,9 +12,12 @@ enum LostItemType: Codable {
     case found
 }
 
-struct LostItem: Codable {
-    let type: LostItemType
-    let title: String
-    let description: String
-    let reward: Int?
+struct LostItem: Codable, Equatable {
+    var type: LostItemType
+    var title: String
+    var description: String
+    var phone: String
+    var reward: String?
+    
+    static let initial = LostItem(type: .lost, title: "", description: "", phone: "", reward: nil)
 }

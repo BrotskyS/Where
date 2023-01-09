@@ -12,16 +12,16 @@ enum RegisterValidationError: String {
     case passwordEmpty = "Password is empty"
     case passwordsNotSame = "Password is not same"
     
-    case emailIsInvalide = "Email is Invalide"
-    case passwordIsInvalide = "Password is invalide"
+    case emailIsInvalid = "Email is Invalid"
+    case passwordIsInvalid = "Password is invalid"
 }
 
 enum LoginValidationError: String {
     case emailEmpty = "Email is empty"
     case passwordEmpty = "Password is empty"
     
-    case emailIsInvalide = "Email is Invalide"
-    case passwordIsInvalide = "Password is invalide"
+    case emailIsInvalid = "Email is Invalid"
+    case passwordIsInvalid = "Password is invalid"
 }
 
 class ValidationManager {
@@ -38,44 +38,52 @@ class ValidationManager {
     }
     
     
-    func validateRegister(email: String?, password: String?, passwordRepeate: String?) -> RegisterValidationError? {
+    // MARK: Register
+    func validateRegister(email: String?, password: String?, passwordRepeat: String?) -> RegisterValidationError? {
         
         guard let email = email, !email.isEmpty else {
             return .emailEmpty
         }
         
         guard isValidEmail(email) else {
-            return .emailIsInvalide
+            return .emailIsInvalid
         }
         guard let  password = password, !password.isEmpty else {
             return .passwordEmpty
         }
         guard isValidPassword(password) else {
-            return .passwordIsInvalide
+            return .passwordIsInvalid
         }
-        
-        guard password == passwordRepeate else {
+    
+        guard password == passwordRepeat else {
             return .passwordsNotSame
         }
         
         return nil
     }
     
+    // MARK: Login
     func validateLogin(email: String?, password: String?) -> LoginValidationError? {
         guard let email = email, !email.isEmpty else {
             return .emailEmpty
         }
         
         guard isValidEmail(email) else {
-            return .emailIsInvalide
+            return .emailIsInvalid
         }
         guard let  password = password, !password.isEmpty else {
             return .passwordEmpty
         }
         guard isValidPassword(password) else {
-            return .passwordIsInvalide
+            return .passwordIsInvalid
         }
         
         return nil
+    }
+    
+    // MARK: Add
+    
+    func validateAdd() {
+        
     }
 }

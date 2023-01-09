@@ -9,12 +9,14 @@ import UIKit
 
 
 class AddViewController: UIViewController {
-
     
+    // MARK: Components
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.alwaysBounceVertical = true
+        scrollView.keyboardDismissMode = .onDrag
+        
         return scrollView
     }()
     
@@ -33,7 +35,6 @@ class AddViewController: UIViewController {
         let segmentedControl = UISegmentedControl(items: items)
         
         
-        segmentedControl.addTarget(AddViewController.self, action: #selector(segmentAction(_:)), for: .valueChanged)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         
@@ -83,6 +84,9 @@ class AddViewController: UIViewController {
         let field = CustomTextFiledUIView()
         field.configure(title: "Specify the reward (option)", placeholder: "0$", maxWord: nil)
         field.setKeyboardType(type: .decimalPad)
+        
+   
+        
         return field
     }()
     
@@ -108,7 +112,19 @@ class AddViewController: UIViewController {
     private let photoViewer = AddPhotoViewerViewController()
     private var images: [ImageItem] = []
     
+    private var lostItem: LostItem
     
+    
+    
+    // MARK: Life Circle
+    init(lostItem: LostItem = LostItem.initial) {
+        self.lostItem = lostItem
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,19 +133,41 @@ class AddViewController: UIViewController {
         setupViews()
         setupLayout()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(tappedOnClearButton))
+        
+        
     }
+    
+    
     
     
     private func setupViews() {
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
         
+        // segmentControl
         stackView.addArrangedSubview(segmentControl)
+        segmentControl.addTarget(self, action: #selector(segmentAction), for: .valueChanged)
+        
         stackView.addArrangedSubview(photosView)
+        
+        // titleField
         stackView.addArrangedSubview(titleField)
+        titleField.textField.addTarget(self, action: #selector(onChangeTitle), for: .editingChanged)
+        titleField.textField.addTarget(self, action: #selector(saveLostItem), for: .editingDidEndOnExit)
+        
         stackView.addArrangedSubview(descriptionField)
+        descriptionField.delegate = self
+        
+        // phoneNumberField
         stackView.addArrangedSubview(phoneNumberField)
+        phoneNumberField.textField.addTarget(self, action: #selector(onChangePhone), for: .editingChanged)
+        phoneNumberField.textField.addTarget(self, action: #selector(saveLostItem), for: .editingDidEndOnExit)
+        
+        // rewardFiled
         stackView.addArrangedSubview(rewardFiled)
+        rewardFiled.textField.addTarget(self, action: #selector(onChangeReward), for: .editingChanged)
+        rewardFiled.textField.addTarget(self, action: #selector(saveLostItem), for: .editingDidEndOnExit)
         
         saveButton.addTarget(self, action: #selector(tappedOnSaveButton), for: .touchUpInside)
         stackView.addArrangedSubview(saveButton)
@@ -141,17 +179,59 @@ class AddViewController: UIViewController {
         photoViewer.delegate = self
         photoViewer.dataSource = self
         
+        
+        
+        // if lostItem is not initial. Wee need update data
+        if lostItem != LostItem.initial {
+            reloadData()
+        }
+        
     }
     
-    @objc func segmentAction(_ segmentedControl: UISegmentedControl) {
+    
+    func reloadData() {
+        segmentControl.selectedSegmentIndex = lostItem.type == .lost ? 0 : 1
+        
+        titleField.setText(text: lostItem.title)
+        descriptionField.setText(text: lostItem.description)
+        phoneNumberField.setText(text: lostItem.phone)
+        
+        rewardFiled.setText(text: lostItem.reward ?? "")
+    }
+    
+    // MARK: Private
+    
+    @objc private func segmentAction(_ segmentedControl: UISegmentedControl) {
         switch (segmentedControl.selectedSegmentIndex) {
             case 0:
-                break // Lost
+                lostItem.type = .lost
+                saveLostItem()
             case 1:
-                break // Found
+                lostItem.type = .found
+                saveLostItem()
             default:
                 break
         }
+    }
+    
+    
+    @objc func onChangeTitle(_ textField: UITextField) {
+        lostItem.title = textField.text ?? ""
+    }
+    
+    @objc func onChangePhone(_ textField: UITextField) {
+        lostItem.phone = textField.text ?? ""
+        
+    }
+    @objc func onChangeReward(_ textField: UITextField) {
+        lostItem.reward = textField.text ?? ""
+        
+    }
+    
+    @objc private func tappedOnClearButton() {
+        lostItem = LostItem.initial
+        reloadData()
+        saveLostItem()
     }
     
     @objc private func tappedOnSaveButton() {
@@ -159,9 +239,15 @@ class AddViewController: UIViewController {
     }
     
     
+    @objc private func saveLostItem() {
+        UserDefaultsManager.save(data: lostItem, key: .lostItem)
+    }
+    
+    
     private func setupLayout() {
-        
         NSLayoutConstraint.activate([
+            
+            
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -172,6 +258,12 @@ class AddViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 10),
             stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -30),
         ])
+        
+    }
+    
+    // MARK: Validate fields
+    
+    private func validateFields() {
         
     }
     
@@ -210,7 +302,6 @@ extension AddViewController: AddPhotoViewerViewControllerDelegate, AddPhotoViewe
         
         self.images = images
         
-        print(images.count)
         photosView.setImages(images: self.images)
     }
     
@@ -218,4 +309,14 @@ extension AddViewController: AddPhotoViewerViewControllerDelegate, AddPhotoViewe
         return images
     }
     
+}
+
+extension AddViewController: CustomTextViewUIViewDelegate {
+    func customTextViewTextChanged(text: String?) {
+        lostItem.description = text ?? ""
+    }
+    
+    func textViewDidEndEditing() {
+        saveLostItem()
+    }
 }

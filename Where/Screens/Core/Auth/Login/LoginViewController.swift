@@ -192,9 +192,9 @@ class LoginViewController: WABaseController, UITextViewDelegate, ChangeAuthTypeB
         }
         
         switch validationError {
-            case .emailEmpty, .emailIsInvalide:
+            case .emailEmpty, .emailIsInvalid:
                 return emailField.setError(message: validationError.rawValue)
-            case .passwordEmpty, .passwordIsInvalide:
+            case .passwordEmpty, .passwordIsInvalid:
                 return passwordField.setError(message: validationError.rawValue)
         }
         

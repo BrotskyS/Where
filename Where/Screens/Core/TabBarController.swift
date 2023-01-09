@@ -27,7 +27,10 @@ final class TabBarController: UITabBarController {
     private func configure() {
         let vc1 = HomeViewController()
         let vc2 = MapViewController()
-        let vc3 = AddViewController()
+        
+        let savedLostItem: LostItem? = UserDefaultsManager.get(key: .lostItem)
+        let vc3 = AddViewController(lostItem: savedLostItem ?? LostItem.initial)
+        
         let vc4 = ChatViewController()
         let vc5 = AccountViewController()
         

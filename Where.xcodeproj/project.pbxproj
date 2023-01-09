@@ -19,6 +19,7 @@
 		0D5EFAB0292BCD86006FC01F /* CustomTextFiledUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EFAAF292BCD86006FC01F /* CustomTextFiledUIView.swift */; };
 		0D5EFAB2292BE08C006FC01F /* UITextField + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EFAB1292BE08C006FC01F /* UITextField + ext.swift */; };
 		0D5EFAB4292BF17F006FC01F /* PhotosUIVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5EFAB3292BF17F006FC01F /* PhotosUIVIew.swift */; };
+		0D788D5D296C8C8E000076FE /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D788D5C296C8C8E000076FE /* UserDefaultsManager.swift */; };
 		0D9892A4293A7F04004AE7B3 /* LostItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9892A3293A7F04004AE7B3 /* LostItem.swift */; };
 		0DC0F10A2914525A00FB6D4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC0F1092914525A00FB6D4D /* AppDelegate.swift */; };
 		0DC0F10C2914525A00FB6D4D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC0F10B2914525A00FB6D4D /* SceneDelegate.swift */; };
@@ -68,6 +69,7 @@
 		0D5EFAAF292BCD86006FC01F /* CustomTextFiledUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFiledUIView.swift; sourceTree = "<group>"; };
 		0D5EFAB1292BE08C006FC01F /* UITextField + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField + ext.swift"; sourceTree = "<group>"; };
 		0D5EFAB3292BF17F006FC01F /* PhotosUIVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosUIVIew.swift; sourceTree = "<group>"; };
+		0D788D5C296C8C8E000076FE /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		0D9892A3293A7F04004AE7B3 /* LostItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LostItem.swift; sourceTree = "<group>"; };
 		0DC0F1062914525A00FB6D4D /* Where.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Where.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DC0F1092914525A00FB6D4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				0DE1C029292D426600C2C93A /* AuthManager.swift */,
 				0DF69E8629393EF900F1E5FE /* ValidationManager.swift */,
 				0DF69E8D293A69EA00F1E5FE /* FirestoreManager.swift */,
+				0D788D5C296C8C8E000076FE /* UserDefaultsManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				0D3B24DA2923EDD0007E03F0 /* MapViewController.swift in Sources */,
 				0D9892A4293A7F04004AE7B3 /* LostItem.swift in Sources */,
 				0DF69E702935212100F1E5FE /* WABaseController.swift in Sources */,
+				0D788D5D296C8C8E000076FE /* UserDefaultsManager.swift in Sources */,
 				0DF69E7C2938FC3C00F1E5FE /* LostItemUserView.swift in Sources */,
 				0DE1C032292EC1F300C2C93A /* DeviderView.swift in Sources */,
 				0DF69E8C293A696200F1E5FE /* User.swift in Sources */,

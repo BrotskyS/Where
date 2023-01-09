@@ -30,7 +30,7 @@ class FirestoreManager {
     
     func createLostItem(_ lostItem: LostItem) {
         do {
-           try db.collection("items")
+           try db.collection("lostItems")
                 .document()
                 .setData(from: lostItem)
         } catch {

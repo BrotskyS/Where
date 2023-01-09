@@ -176,7 +176,7 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
         let validationError =  validationManager.validateRegister(
             email: emailField.getText(),
             password: passwordField.getText(),
-            passwordRepeate: passwordRepeateField.getText()
+            passwordRepeat: passwordRepeateField.getText()
         )
         
         guard let validationError = validationError else {
@@ -185,9 +185,9 @@ class RegisterViewController: WABaseController, UITextViewDelegate, ChangeAuthTy
         }
         
         switch validationError {
-            case .emailEmpty, .emailIsInvalide :
+            case .emailEmpty, .emailIsInvalid :
                 emailField.setError(message: validationError.rawValue)
-            case .passwordEmpty, .passwordIsInvalide:
+            case .passwordEmpty, .passwordIsInvalid:
                 passwordField.setError(message: validationError.rawValue)
             case .passwordsNotSame:
                 passwordRepeateField.setError(message: validationError.rawValue)

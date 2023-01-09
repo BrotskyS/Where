@@ -7,7 +7,12 @@
 
 import UIKit
 
-class CustomTextViewUIView: UIView, UITextViewDelegate {
+protocol CustomTextViewUIViewDelegate: AnyObject {
+    func customTextViewTextChanged(text: String?)
+    func textViewDidEndEditing()
+}
+
+class CustomTextViewUIView: UIView {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -47,6 +52,8 @@ class CustomTextViewUIView: UIView, UITextViewDelegate {
     }()
     
     
+    var delegate: CustomTextViewUIViewDelegate?
+    
     
     
     // MARK: Lifecycle
@@ -68,16 +75,7 @@ class CustomTextViewUIView: UIView, UITextViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    func textViewDidChange(_ textView: UITextView) {
-        let textCount = textView.text?.count ?? 0
-        counterLabel.text = "\(textCount)/\(maxWord)"
-        
-        if textCount > maxWord {
-            counterLabel.textColor = .systemRed
-        } else {
-            counterLabel.textColor = .lightGray
-        }
-    }
+  
     
     // MARK: Open
     open func configure(title: String, placeholder: String, maxWord: Int?) {
@@ -92,10 +90,24 @@ class CustomTextViewUIView: UIView, UITextViewDelegate {
     }
     
     
+    func setText(text: String?) {
+        textView.text = text
+        
+        updateCounter(textCount: text?.count ?? 0)
+    }
+    
     
     // MARK: Private
     
-    
+    private func updateCounter(textCount: Int) {
+        counterLabel.text = "\(textCount)/\(maxWord)"
+        
+        if textCount > maxWord {
+            counterLabel.textColor = .systemRed
+        } else {
+            counterLabel.textColor = .lightGray
+        }
+    }
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
@@ -118,4 +130,21 @@ class CustomTextViewUIView: UIView, UITextViewDelegate {
         ])
     }
 
+}
+
+
+extension CustomTextViewUIView: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let textCount = textView.text?.count ?? 0
+        
+        updateCounter(textCount: textCount)
+        
+        
+        delegate?.customTextViewTextChanged(text: textView.text)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        delegate?.textViewDidEndEditing()
+    }
 }

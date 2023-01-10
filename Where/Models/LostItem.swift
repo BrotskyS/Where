@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 enum LostItemType: String, Codable {
     case lost
@@ -19,5 +20,11 @@ struct LostItem: Codable, Equatable {
     var phone: String
     var reward: String?
     
-    static let initial = LostItem(type: .lost, title: "", description: "", phone: "", reward: nil)
+    var userID: String
+    
+    
+    static let initial = LostItem(type: .lost, title: "", description: "", phone: "", reward: nil, userID: "")
+    
 }
+
+

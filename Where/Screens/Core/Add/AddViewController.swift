@@ -85,7 +85,7 @@ class AddViewController: UIViewController {
         field.configure(title: "Specify the reward (option)", placeholder: "0$", maxWord: nil)
         field.setKeyboardType(type: .decimalPad)
         
-   
+        
         
         return field
     }()
@@ -94,7 +94,7 @@ class AddViewController: UIViewController {
     private let saveButton: UIButton = {
         let button =  UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Save", for: .normal)
+        button.setTitle("Upload", for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
@@ -111,6 +111,8 @@ class AddViewController: UIViewController {
     private let imagePicker = ImagePicker()
     private let photoViewer = AddPhotoViewerViewController()
     private var images: [ImageItem] = []
+    private let firestoreManager = FirestoreManager()
+    private let validationManager = ValidationManager()
     
     private var lostItem: LostItem
     
@@ -236,6 +238,51 @@ class AddViewController: UIViewController {
     
     @objc private func tappedOnSaveButton() {
         
+        
+        let errorHandler = validationManager.validateAddForm(lostItem: lostItem)
+        
+        if let errorHandler = errorHandler {
+            switch errorHandler {
+                case .imageInvalid:
+                    break
+                case .titleInvalid:
+                    titleField.setError(message: errorHandler.rawValue)
+                case .descriptionInvalid:
+                    descriptionField.setError(message: errorHandler.rawValue)
+                case .phoneInvalid:
+                    phoneNumberField.setError(message: errorHandler.rawValue)
+                case .reward:
+                    rewardFiled.setError(message: errorHandler.rawValue)
+            }
+            
+            return
+        }
+        
+        showsActivityIndicatorOnButton(true)
+        
+        firestoreManager.createLostItem(lostItem) { error in
+            
+            self.showsActivityIndicatorOnButton(false)
+            
+            guard error == nil else {
+                self.errorAlert(message: error)
+                
+                return
+            }
+            
+            self.tappedOnClearButton()
+            
+          
+        }
+    }
+    
+    private func showsActivityIndicatorOnButton(_ show: Bool) {
+        var configuration = UIButton.Configuration.filled()
+        configuration.showsActivityIndicator = show
+        saveButton.setTitle(show ? "Uploading..." : "Upload", for: .normal)
+        
+        saveButton.configuration = configuration
+        saveButton.setNeedsUpdateConfiguration()
     }
     
     

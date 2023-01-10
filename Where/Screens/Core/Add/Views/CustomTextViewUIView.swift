@@ -51,6 +51,16 @@ class CustomTextViewUIView: UIView {
         return label
     }()
     
+    let errorMessage: UILabel = {
+       let label = UILabel()
+        label.textColor = .red
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        
+        return label
+    }()
+    
     
     var delegate: CustomTextViewUIViewDelegate?
     
@@ -62,6 +72,7 @@ class CustomTextViewUIView: UIView {
         addSubview(titleLabel)
         addSubview(textView)
         addSubview(counterLabel)
+        addSubview(errorMessage)
         addConstraints()
         
         textView.delegate = self
@@ -96,6 +107,11 @@ class CustomTextViewUIView: UIView {
         updateCounter(textCount: text?.count ?? 0)
     }
     
+    func setError(message: String) {
+        errorMessage.text = message
+        errorMessage.isHidden = false
+    }
+    
     
     // MARK: Private
     
@@ -124,7 +140,10 @@ class CustomTextViewUIView: UIView {
             
             // counterLabel
             counterLabel.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: -5),
-            counterLabel.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -5)
+            counterLabel.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -5),
+            
+            errorMessage.trailingAnchor.constraint(equalTo: trailingAnchor),
+            errorMessage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 20)
             
             
         ])
@@ -139,6 +158,8 @@ extension CustomTextViewUIView: UITextViewDelegate {
         let textCount = textView.text?.count ?? 0
         
         updateCounter(textCount: textCount)
+        
+        errorMessage.isHidden = true
         
         
         delegate?.customTextViewTextChanged(text: textView.text)

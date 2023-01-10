@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum LostItemType: Codable {
+enum LostItemType: String, Codable {
     case lost
     case found
 }

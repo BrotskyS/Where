@@ -47,6 +47,16 @@ class CustomTextFiledUIView: UIView {
     }()
     
     
+    let errorMessage: UILabel = {
+       let label = UILabel()
+        label.textColor = .red
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 10, weight: .semibold)
+        
+        return label
+    }()
+    
     
     
     // MARK: Lifecycle
@@ -56,11 +66,9 @@ class CustomTextFiledUIView: UIView {
         addSubview(titleLabel)
         addSubview(textField)
         addSubview(counterLabel)
+        addSubview(errorMessage)
         addConstraints()
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        
-        
-        
         
         
     }
@@ -102,6 +110,11 @@ class CustomTextFiledUIView: UIView {
         updateCounter(textCount: text?.count ?? 0)
     }
     
+    func setError(message: String) {
+        errorMessage.text = message
+        errorMessage.isHidden = false
+    }
+    
     
     
     // MARK: Private
@@ -110,6 +123,7 @@ class CustomTextFiledUIView: UIView {
         let textCount = textField.text?.count ?? 0
         
         updateCounter(textCount: textCount)
+        errorMessage.isHidden = true
     }
     
     
@@ -138,7 +152,10 @@ class CustomTextFiledUIView: UIView {
             
             // counterLabel
             counterLabel.bottomAnchor.constraint(equalTo: textField.bottomAnchor, constant: -5),
-            counterLabel.trailingAnchor.constraint(equalTo: textField.trailingAnchor, constant: -5)
+            counterLabel.trailingAnchor.constraint(equalTo: textField.trailingAnchor, constant: -5),
+            
+            errorMessage.trailingAnchor.constraint(equalTo: trailingAnchor),
+            errorMessage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 15)
             
             
         ])

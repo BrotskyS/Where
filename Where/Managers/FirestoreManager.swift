@@ -12,6 +12,10 @@ import FirebaseCore
 import FirebaseFirestoreSwift
 
 
+enum FirestoreCollection: String {
+    case lostItems
+}
+
 class FirestoreManager {
     private let db = Firestore.firestore()
     
@@ -28,13 +32,17 @@ class FirestoreManager {
      
     }
     
-    func createLostItem(_ lostItem: LostItem) {
+    func createLostItem(_ lostItem: LostItem, completion: @escaping (Error?) -> Void) {
         do {
-           try db.collection("lostItems")
+            try db.collection(FirestoreCollection.lostItems.rawValue)
                 .document()
-                .setData(from: lostItem)
+                .setData(from: lostItem, completion: { error in
+                    completion(error)
+                })
+               
         } catch {
-            print("Erorr")
+            completion(error)
+            print("Debug: Failed to create lost item. \(error)")
         }
       
     }
